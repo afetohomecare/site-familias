@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afeto Homecare - Cuidadores de Confiança em Curitiba</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --lilas: #8b5cf6;
+            --lilas-escuro: #7c3aed;
+            --fundo-site: #f8f9fc;
+            --preto-fonte: #1f1f1f;
+            --cinza-fonte: #666666;
+            --cinza-azulado: #94a3b8;
+            --branco: #ffffff;
+            --verde-whatsapp: #25D366;
+            --ouro: #fbbf24;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { font-family: 'Nunito', sans-serif; background-color: var(--fundo-site); color: var(--preto-fonte); overflow-x: hidden; scroll-behavior: smooth; }
+        a { text-decoration: none; }
+        
+        header { position: fixed; width: 100%; top: 0; z-index: 1000; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; background-color: var(--branco); border-bottom: 1px solid rgba(0,0,0,0.03); transition: all 0.4s ease; }
+        header.scrolled { padding: 10px 5%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .logo { font-size: 28px; font-weight: 900; color: var(--lilas); letter-spacing: -1px; }
+        .logo span { font-weight: 300; color: var(--cinza-azulado); }
+        .btn-outline { padding: 10px 24px; border-radius: 50px; font-weight: 800; color: var(--lilas); border: 2px solid var(--lilas); transition: 0.3s; background: transparent; }
+        .btn-outline:hover { background: var(--lilas); color: var(--branco); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3); transform: translateY(-2px); }
+
+        .hero { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 20px 100px; background-color: var(--lilas); color: var(--branco); position: relative; width: calc(100% - 40px); max-width: 1600px; margin: 95px auto 0 auto; border-radius: 50px; overflow: hidden; box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15); }
+        .floating-shape { position: absolute; color: rgba(255, 255, 255, 0.12); cursor: pointer; user-select: none; animation: float 6s ease-in-out infinite; font-family: 'Nunito', sans-serif; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; }
+        .shape-1 { font-size: 90px; top: 12%; left: 8%; animation-delay: 0s; } .shape-2 { font-size: 45px; bottom: 25%; right: 12%; animation-delay: 2s; } .shape-3 { font-size: 110px; top: 20%; right: 10%; animation-delay: 4s; } .shape-4 { font-size: 60px; bottom: 15%; left: 15%; animation-delay: 1.5s; } .shape-5 { font-size: 35px; top: 50%; left: 5%; animation-delay: 3s; }
+        .forma-afeto { font-weight: 900; letter-spacing: -1px; color: rgba(255, 255, 255, 0.3); transform: scale(0.9); }
+        .pop-anim { animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; }
+        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.5) rotate(-5deg); opacity: 0.8; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
+        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-15px) rotate(5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+
+        .badge-hero { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 800; margin-bottom: 25px; backdrop-filter: blur(5px); z-index: 2; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .hero h1 { font-size: 52px; font-weight: 900; line-height: 1.1; margin-bottom: 20px; max-width: 900px; z-index: 2; letter-spacing: -1.5px; }
+        .hero p { font-size: 20px; font-weight: 700; max-width: 650px; margin-bottom: 50px; opacity: 0.95; z-index: 2; }
+        .btn-primary { background: var(--branco); color: var(--lilas); padding: 18px 40px; border-radius: 50px; font-size: 18px; font-weight: 900; display: inline-flex; align-items: center; gap: 10px; z-index: 2; box-shadow: 0 15px 30px rgba(0,0,0,0.15); transition: 0.3s; border: none; cursor: pointer; }
+        .btn-primary:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.25); color: var(--lilas-escuro); }
+
+        .section { padding: 100px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-header h2 { font-size: 36px; color: var(--preto-fonte); margin-bottom: 15px; font-weight: 900; letter-spacing: -1px; }
+        .section-header p { color: var(--cinza-fonte); font-size: 18px; font-weight: 700; }
+
+        .sobre-nos-box { background: var(--branco); border-radius: 35px; padding: 50px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; max-width: 900px; margin: 0 auto; }
+        .sobre-nos-box h2 { font-size: 32px; color: var(--lilas); margin-bottom: 20px; font-weight: 900; letter-spacing: -1px; }
+        .sobre-nos-box p { font-size: 18px; color: var(--cinza-fonte); font-weight: 600; line-height: 1.8; margin: 0; }
+
+        .como-funciona-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 60px; align-items: center; }
+        .como-funciona-img { border-radius: 35px; overflow: hidden; height: 100%; box-shadow: 0 30px 60px rgba(139, 92, 246, 0.2); }
+        .como-funciona-img img { width: 100%; height: 100%; min-height: 420px; object-fit: cover; display: block; }
+        .steps-list { display: flex; flex-direction: column; gap: 25px; }
+        .step-item { background: var(--branco); border-radius: 24px; padding: 30px; display: flex; align-items: flex-start; gap: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        .step-item:hover { transform: translateX(8px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.12); }
+        .step-item .icon-box { margin: 0; flex-shrink: 0; font-size: 28px; color: var(--lilas); background: var(--fundo-site); padding: 15px; border-radius: 15px; }
+        .step-item h3 { font-size: 20px; margin-bottom: 8px; font-weight: 800; }
+        .step-item p { color: var(--cinza-fonte); font-size: 16px; font-weight: 600; line-height: 1.5; margin: 0; }
+
+        .cards-grid { display: flex; gap: 30px; margin-top: 30px; overflow-x: auto; padding-bottom: 25px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .cards-grid::-webkit-scrollbar { height: 10px; } .cards-grid::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; } .cards-grid::-webkit-scrollbar-thumb { background: var(--cinza-azulado); border-radius: 10px; }
+
+        .cuidador-card { flex: 0 0 320px; scroll-snap-align: start; background: var(--branco); border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid #f1f5f9; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); display: flex; flex-direction: column; color: inherit; text-decoration: none; position: relative; }
+        .cuidador-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        
+        .card-ouro { border-color: #fde68a; }
+        .card-diamante { border-color: #bae6fd; background: linear-gradient(145deg, #ffffff 60%, #f0f9ff 100%); }
+
+        .card-top { display: flex; justify-content: center; padding-top: 35px; margin-bottom: 15px; }
+        
+        .foto-anel { width: 130px; height: 130px; border-radius: 50%; padding: 5px; display: flex; justify-content: center; align-items: center; background: transparent; }
+        .foto-anel img, .foto-anel i { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .foto-anel i { display: flex; justify-content: center; align-items: center; background: #f8f9fc; font-size: 50px; color: #cbd5e1; }
+        
+        .anel-bronze { border: 2px solid #b45309; } 
+        .anel-prata { border: 3px solid #94a3b8; }
+        .anel-ouro { border: 4px solid #d97706; box-shadow: 0 5px 15px rgba(217, 119, 6, 0.2); }
+        .anel-diamante { border: 4px solid #0ea5e9; box-shadow: 0 0 20px rgba(14, 165, 233, 0.3); }
+
+        .cuidador-info { padding: 0 25px 25px 25px; flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        
+        .badges-container { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 12px; }
+        .cuidador-badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; }
+        
+        .badge-verificada { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+        .badge-coren { background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; }
+        
+        .badge-iniciante { background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
+        .badge-bronze { background: #fff7ed; color: #b45309; border: 1px solid #fed7aa; }
+        .badge-prata { background: #f8fafc; color: #475569; border: 1px solid #cbd5e1; }
+        .badge-ouro { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+        .badge-diamante { background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; }
+
+        .cuidador-nome { font-size: 22px; font-weight: 900; margin-bottom: 8px; color: var(--preto-fonte); letter-spacing: -0.5px; }
+        
+        .cuidador-stars { color: var(--ouro); font-size: 16px; letter-spacing: 2px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 900; }
+        .nota-numero { font-size: 15px; font-weight: 900; color: var(--preto-fonte); letter-spacing: 0; }
+        
+        .cuidador-tag { color: var(--lilas); font-size: 15px; font-weight: 800; margin-bottom: 5px; }
+        .cuidador-meta { font-size: 14px; color: var(--cinza-fonte); margin-bottom: 20px; font-weight: 600; }
+        
+        .stars-diamante { font-size: 20px !important; }
+        .stars-diamante .nota-numero { font-size: 18px !important; color: #0284c7 !important; }
+        .meta-diamante { font-size: 16px !important; font-weight: 800 !important; color: var(--preto-fonte) !important; }
+
+        .cuidador-preco { width: 100%; border-top: 1px solid rgba(0,0,0,0.04); padding-top: 15px; margin-top: auto; margin-bottom: 15px; font-size: 14px; font-weight: 700; color: var(--cinza-fonte); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px; }
+        .cuidador-preco strong { font-size: 24px; color: var(--lilas-escuro); font-weight: 900; }
+        
+        .btn-ver-perfil { text-align: center; color: var(--lilas); font-weight: 800; font-size: 15px; transition: 0.3s; }
+        .cuidador-card:hover .btn-ver-perfil { color: var(--lilas-escuro); transform: translateX(5px); }
+
+        .loader { text-align: center; padding: 50px; font-size: 18px; font-weight: bold; color: var(--lilas); width: 100%; }
+
+        .faq-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+        .faq-item { background: var(--branco); border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); overflow: hidden; transition: all 0.3s ease; border: 1px solid transparent; }
+        .faq-item.active { border-color: rgba(139, 92, 246, 0.3); box-shadow: 0 10px 25px rgba(139, 92, 246, 0.1); }
+        .faq-question { width: 100%; text-align: left; padding: 25px 30px; background: none; border: none; font-size: 18px; font-weight: 800; color: var(--preto-fonte); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: 'Nunito', sans-serif; transition: color 0.3s; }
+        .faq-question:hover { color: var(--lilas); }
+        .faq-icon { color: var(--lilas); font-size: 20px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .faq-item.active .faq-icon { transform: rotate(45deg); } 
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 30px; background-color: var(--branco); }
+        .faq-item.active .faq-answer { max-height: 300px; padding: 0 30px 25px 30px; }
+        .faq-answer p { margin: 0; color: var(--cinza-fonte); font-size: 16px; font-weight: 600; line-height: 1.6; }
+
+        .form-container { background: var(--branco); padding: 50px; border-radius: 35px; box-shadow: 0 25px 60px rgba(0,0,0,0.08); max-width: 650px; margin: 0 auto; position: relative; }
+        .form-container h3 { text-align: center; font-size: 32px; margin-bottom: 10px; font-weight: 900; letter-spacing: -1px; }
+        .form-container p { color: var(--cinza-fonte); text-align: center; margin-bottom: 40px; font-weight: 700; font-size: 16px; }
+        label { display: block; margin-bottom: 10px; font-weight: 800; font-size: 16px; color: var(--preto-fonte); }
+        input, textarea, select { width: 100%; padding: 18px 20px; margin-bottom: 30px; background-color: var(--fundo-site); border: 2px solid transparent; color: var(--preto-fonte); border-radius: 18px; box-sizing: border-box; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 16px; transition: all 0.3s ease; }
+        select option { color: var(--preto-fonte); background-color: var(--branco); font-weight: 700; }
+        select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 20px center; background-size: 18px; cursor: pointer; }
+        select:invalid { color: var(--cinza-azulado); }
+        input::placeholder, textarea::placeholder { color: var(--cinza-azulado); font-weight: 600; }
+        input:focus, textarea:focus, select:focus { border-color: var(--lilas); outline: none; background-color: var(--branco); box-shadow: 0 0 0 5px rgba(139, 92, 246, 0.12); transform: translateY(-2px); }
+        .btn-submit { background-color: var(--lilas); color: var(--branco); border: none; padding: 22px; width: 100%; font-size: 18px; font-weight: 900; border-radius: 18px; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2); display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-submit:hover { background-color: var(--lilas-escuro); transform: translateY(-3px) scale(1.01); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
+
+        .btn-wpp { position: fixed; bottom: 30px; right: 30px; z-index: 999; background: var(--verde-whatsapp); color: white; width: 70px; height: 70px; border-radius: 24px; display: flex; justify-content: center; align-items: center; font-size: 38px; box-shadow: 0 15px 30px rgba(37, 211, 102, 0.35); animation: pulse-green 2s infinite; transition: 0.3s; }
+        .btn-wpp:hover { transform: scale(1.15); box-shadow: 0 20px 40px rgba(37, 211, 102, 0.5); }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); } 70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ========= RODAPÉ JURÍDICO ========= */
+        .site-footer { background-color: var(--fundo-site); color: var(--cinza-fonte); padding: 50px 20px 30px; text-align: center; border-top: 1px solid #e2e8f0; margin-top: 60px; }
+        .footer-content { max-width: 900px; margin: 0 auto; font-size: 13px; line-height: 1.6; }
+        .footer-content p { margin-bottom: 25px; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
+        .footer-links a { color: var(--lilas-escuro); font-weight: 800; font-size: 14px; transition: 0.3s; }
+        .footer-links a:hover { color: var(--lilas); text-decoration: underline; }
+        .footer-legal { font-size: 11px; color: var(--cinza-azulado); border-top: 1px solid #e2e8f0; padding-top: 20px; }
+
+        @media (max-width: 900px) {
+            .hero { margin: 95px 15px 0 15px; width: calc(100% - 30px); padding: 60px 15px 80px; }
+            .hero h1 { font-size: 40px; }
+            .sobre-nos-box, .form-container { padding: 40px 25px; }
+            .faq-question { font-size: 16px; padding: 20px; }
+            .faq-answer { padding: 0 20px; }
+            .faq-item.active .faq-answer { padding: 0 20px 20px 20px; }
+            .como-funciona-grid { grid-template-columns: 1fr; gap: 35px; }
+            .como-funciona-img img { min-height: 280px; }
+            .cuidador-card { flex: 0 0 280px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="logo">Afeto<span>Homecare</span></div>
+        <a href="#orcamento" class="btn-outline">Fale Conosco</a>
+    </header>
+
+    <section class="hero">
+        <div class="floating-shape shape-1" onclick="transformarAfeto(this)"><i class="fa-solid fa-heart"></i></div>
+        <div class="floating-shape shape-2" onclick="transformarAfeto(this)"><i class="fa-solid fa-heart"></i></div>
+        <div class="floating-shape shape-3" onclick="transformarAfeto(this)"><i class="fa-solid fa-heart"></i></div>
+        <div class="floating-shape shape-4" onclick="transformarAfeto(this)"><i class="fa-solid fa-heart"></i></div>
+        <div class="floating-shape shape-5" onclick="transformarAfeto(this)"><i class="fa-solid fa-heart"></i></div>
+
+        <div class="badge-hero"><i class="fa-solid fa-location-dot"></i> Curitiba e Região</div>
+        <h1>Cuidadores de confiança, indicados com critério.</h1>
+        <p>Apresentamos profissionais com perfis verificados e avaliações reais para a sua família escolher com tranquilidade.</p>
+        <a href="#orcamento" class="btn-primary">
+            Buscar Cuidador <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </section>
+
+    <section class="section" style="padding-top: 40px; padding-bottom: 20px;">
+        <div class="sobre-nos-box reveal">
+            <h2>Conheça as profissionais certas para o seu lar.</h2>
+            <p>A Afeto Homecare é uma vitrine digital dedicada a dar visibilidade a cuidadores com perfis verificados e bem avaliados. Reunimos em um só lugar profissionais que já construíram uma reputação de excelência, para que as famílias encontrem com segurança quem realmente combina com a rotina do seu ente querido. Cada avaliação feita pelas famílias nos ajuda a acompanhar a qualidade do cuidado e a manter a confiança dos perfis que apresentamos.</p>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top: 40px;">
+        <div class="section-header reveal">
+            <h2>Como funciona?</h2>
+            <p>Um caminho simples para encontrar o profissional ideal.</p>
+        </div>
+        <div class="como-funciona-grid">
+            <div class="como-funciona-img reveal">
+                <img src="cuidado-maos.jpg" alt="Cuidadora auxiliando com carinho" loading="lazy" width="900" height="1050">
+            </div>
+            <div class="steps-list">
+                <div class="step-item reveal" style="transition-delay: 0.1s;">
+                    <div class="icon-box"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <div>
+                        <h3>1. Você conta sua necessidade</h3>
+                        <p>Fale com a nossa equipe e explique qual a rotina e o perfil ideal para o seu familiar.</p>
+                    </div>
+                </div>
+                <div class="step-item reveal" style="transition-delay: 0.2s;">
+                    <div class="icon-box"><i class="fa-solid fa-user-nurse"></i></div>
+                    <div>
+                        <h3>2. Apresentamos as indicadas</h3>
+                        <p>Selecionamos e mostramos os perfis verificados de cuidadoras que mais combinam com a sua necessidade.</p>
+                    </div>
+                </div>
+                <div class="step-item reveal" style="transition-delay: 0.3s;">
+                    <div class="icon-box"><i class="fa-solid fa-shield-heart"></i></div>
+                    <div>
+                        <h3>3. Você escolhe e contrata</h3>
+                        <p>Converse direto com a profissional, tire dúvidas e feche com quem você se sentir mais segura.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top: 20px; padding-bottom: 40px;">
+        <div class="section-header reveal">
+            <h2>Profissionais em Destaque</h2>
+            <p>Conheça algumas das cuidadoras verificadas em nossa vitrine, prontas para atender sua família.</p>
+        </div>
+        <div class="cards-grid" id="cuidadores-grid">
+            <div class="loader">Buscando profissionais na base de dados... <i class="fa-solid fa-spinner fa-spin"></i></div>
+        </div>
+    </section>
+
+    <section class="section" id="orcamento" style="padding-top: 20px;">
+        <div class="form-container reveal">
+            <h3>Encontrar Cuidador</h3>
+            <p>Deixe seus dados e retornaremos no WhatsApp com as indicações que mais combinam com você!</p>
+            <form id="form-orcamento" action="https://formspree.io/f/mrpgldae" method="POST">
+                <input type="hidden" name="_next" value="https://wa.me/5541997674866">
+                <label for="nome">Seu Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                <label for="telefone">WhatsApp:</label>
+                <input type="tel" id="telefone" name="telefone" placeholder="(41) 99999-9999" required>
+                <label for="escala">De quanto tempo de afeto o paciente precisa?</label>
+                <select id="escala" name="escala" required>
+                    <option value="" disabled selected hidden>Selecione a rotina ideal...</option>
+                    <option value="6h">Plantão de 6 horas</option>
+                    <option value="dia">Apenas durante o dia (Plantão 12h)</option>
+                    <option value="noite">Apenas durante a noite (Plantão 12h)</option>
+                    <option value="24h">Cuidado contínuo (Cobertura 24 horas)</option>
+                    <option value="hospitalar">Cuidado hospitalar</option>
+                    <option value="fds">Aos finais de semana</option>
+                    <option value="outro">Outra rotina / Ainda não tenho certeza</option>
+                </select>
+                <label for="detalhes">O que o paciente precisa hoje?</label>
+                <textarea id="detalhes" name="detalhes" rows="3" placeholder="Ex: Paciente de 75 anos, precisa de auxílio para locomoção..." required></textarea>
+                <button type="submit" class="btn-submit">Solicitar Afeto <i class="fa-solid fa-heart"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top: 20px;">
+        <div class="section-header reveal">
+            <h2>Esclareça suas maiores dúvidas</h2>
+            <p>Transparência total para você tomar a melhor decisão.</p>
+        </div>
+        <div class="faq-container reveal">
+            <div class="faq-item">
+                <button class="faq-question">O que a Afeto faz pela minha família? <i class="fa-solid fa-plus faq-icon"></i></button>
+                <div class="faq-answer"><p>Somos uma vitrine digital que reúne perfis de cuidadoras verificadas. Apresentamos e indicamos os profissionais que mais combinam com a necessidade da sua família, para que vocês escolham com mais segurança e tranquilidade.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">E se o paciente não se adaptar ao cuidador? <i class="fa-solid fa-plus faq-icon"></i></button>
+                <div class="faq-answer"><p>Você conversa diretamente com a profissional antes de fechar qualquer plantão. Se perceber que não houve aquela "sintonia", basta não prosseguir, sem qualquer burocracia. Você é quem decide.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Quais são as opções de horários? <i class="fa-solid fa-plus faq-icon"></i></button>
+                <div class="faq-answer"><p>Trabalhamos com plantões de 6 horas, 12 horas (dia ou noite), cobertura contínua de 24 horas, além de acompanhamento aos finais de semana e em hospitais.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Como os perfis são selecionados? <i class="fa-solid fa-plus faq-icon"></i></button>
+                <div class="faq-answer"><p>Fazemos a checagem de antecedentes, validação de referências anteriores e acompanhamos as avaliações reais deixadas pelas famílias. Isso mantém a qualidade e a credibilidade dos perfis que disponibilizamos aqui.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/5541997674866" target="_blank" class="btn-wpp"><i class="fa-brands fa-whatsapp"></i></a>
+
+    <!-- ========= RODAPÉ JURÍDICO ========= -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>A Afeto é uma plataforma digital que aproxima famílias de cuidadores de excelência. Nosso papel é fornecer a melhor tecnologia em apresentação de perfis, marketing e segurança de pagamentos para profissionais autônomos. Cada cuidador parceiro atua de forma independente, utilizando nossa vitrine para expandir sua base de clientes, definindo seus próprios horários e repasses com 100% de autonomia.</p>
+            <div class="footer-links">
+                <a href="termos.html">Termos de Uso</a>
+                <a href="privacidade.html">Política de Privacidade</a>
+            </div>
+            <div class="footer-legal">
+                Afeto Homecare — CNPJ: 64.215.069/0001-15 &copy; Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const btn = item.querySelector('.faq-question');
+            btn.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(otherItem => { otherItem.classList.remove('active'); });
+                if (!isActive) { item.classList.add('active'); }
+            });
+        });
+
+        const form = document.getElementById('form-orcamento');
+        const btnSubmit = form.querySelector('.btn-submit');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btnOriginalText = btnSubmit.innerHTML;
+            btnSubmit.innerHTML = 'Enviando... <i class="fa-solid fa-spinner fa-spin"></i>';
+            const data = new FormData(form);
+            const nome = document.getElementById('nome').value;
+            const escalaSel = document.getElementById('escala');
+            const escala = escalaSel.options[escalaSel.selectedIndex].text;
+            const detalhes = document.getElementById('detalhes').value;
+            let msg = `Olá! Sou *${nome}* e gostaria de encontrar uma cuidadora.\n\n*Rotina:* ${escala}\n*Detalhes:* ${detalhes}`;
+
+            fetch(form.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' } })
+            .then(response => {
+                if (response.ok) {
+                    const seuNumero = '5541997674866';
+                    window.location.href = `https://wa.me/${seuNumero}?text=${encodeURIComponent(msg)}`;
+                    setTimeout(() => { btnSubmit.innerHTML = btnOriginalText; form.reset(); }, 2000);
+                } else { alert("Ops! Houve um erro ao enviar."); btnSubmit.innerHTML = btnOriginalText; }
+            }).catch(error => { alert("Ops! Falha na conexão."); btnSubmit.innerHTML = btnOriginalText; });
+        });
+
+        function transformarAfeto(elemento) {
+            elemento.classList.add('pop-anim');
+            setTimeout(() => {
+                if (elemento.innerHTML.includes('fa-heart')) { elemento.innerHTML = 'Afeto'; elemento.classList.add('forma-afeto'); }
+                else { elemento.innerHTML = '<i class="fa-solid fa-heart"></i>'; elemento.classList.remove('forma-afeto'); }
+            }, 150);
+            setTimeout(() => { elemento.classList.remove('pop-anim'); }, 400);
+        }
+
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+        });
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
+            }
+        }
+        window.addEventListener("scroll", reveal); reveal();
+
+        const telefoneInput = document.getElementById('telefone');
+        telefoneInput.addEventListener('input', function (e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+
+        // ========= INTEGRAÇÃO AIRTABLE =========
+        const API_KEY = 'patl042fqFhzdECNS.31172479b55fffd9c3b5c7d7e7b5dee4a19b0b5600eb2273aa02d0ec427b35ae';
+        const BASE_ID = 'apphAWeT91l1dMWM5'; 
+        const TABLE_NAME = 'Cuidadores';
+
+        async function carregarCuidadores() {
+            const grid = document.getElementById('cuidadores-grid');
+            if(!grid) return;
+            const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`;
+
+            try {
+                const response = await fetch(url, { headers: { Authorization: `Bearer ${API_KEY}` } });
+                const data = await response.json();
+                
+                if(data.records) {
+                    grid.innerHTML = '';
+                    data.records.forEach(record => {
+                        const f = record.fields;
+                        const nome = f.Nome || "Sem nome";
+                        const especialidade = f.Especialidade || "Cuidador(a)";
+                        const bairro = f.Bairro || "Curitiba";
+                        const horas = f.Horas || 0;
+                        const precoBase = parseFloat(f.Preco) || 0;
+                        const precoFinal = Math.ceil(precoBase * 1.15);
+                        
+                        let fotoHTML = '<i class="fa-solid fa-user"></i>';
+                        if (f.Foto && f.Foto.length > 0) { fotoHTML = `<img src="${f.Foto[0].url}" alt="${nome}">`; }
+
+                        let seloCategoria = '';
+                        let cardClassAdd = '';
+                        let anelClassAdd = '';
+                        let isDiamante = false;
+                        
+                        if (f.Categoria) {
+                            const catText = f.Categoria.toLowerCase();
+                            if (catText.includes('diamante')) { cardClassAdd = 'card-diamante'; anelClassAdd = 'anel-diamante'; seloCategoria = `<span class="cuidador-badge badge-diamante"><i class="fa-solid fa-certificate"></i> Diamante</span>`; isDiamante = true; } 
+                            else if (catText.includes('ouro')) { cardClassAdd = 'card-ouro'; anelClassAdd = 'anel-ouro'; seloCategoria = `<span class="cuidador-badge badge-ouro"><i class="fa-solid fa-shield-heart"></i> Ouro</span>`; } 
+                            else if (catText.includes('prata')) { cardClassAdd = 'card-prata'; anelClassAdd = 'anel-prata'; seloCategoria = `<span class="cuidador-badge badge-prata">⭐ Prata</span>`; } 
+                            else if (catText.includes('bronze')) { cardClassAdd = 'card-bronze'; anelClassAdd = 'anel-bronze'; seloCategoria = `<span class="cuidador-badge badge-bronze">🥉 Bronze</span>`; }
+                            else { seloCategoria = `<span class="cuidador-badge badge-iniciante">Iniciante</span>`; }
+                        } else { seloCategoria = `<span class="cuidador-badge badge-iniciante">Iniciante</span>`; }
+
+                        const seloVerificada = f.Verificada ? `<span class="cuidador-badge badge-verificada"><i class="fa-solid fa-check"></i> Verificada</span>` : '';
+                        const seloCoren = f.COREN ? `<span class="cuidador-badge badge-coren"><i class="fa-solid fa-id-card"></i> COREN</span>` : '';
+
+                        let estrelasHTML = '';
+                        let notaValor = parseFloat(f.Nota);
+                        if (!isNaN(notaValor) && notaValor > 0) {
+                            let qtdCheias = Math.round(notaValor);
+                            if (qtdCheias > 5) qtdCheias = 5;
+                            let estrelasStr = '★'.repeat(qtdCheias) + '☆'.repeat(5 - qtdCheias);
+                            estrelasHTML = `<span style="display: flex; gap: 2px;">${estrelasStr}</span> <span class="nota-numero" style="margin-left: 5px;">${notaValor.toFixed(1)}</span>`;
+                        } else { estrelasHTML = `<span style="font-size: 13px; color: var(--cinza-fonte); font-weight: 700;">Ainda não avaliada</span>`; }
+
+                        const cardHTML = `
+                            <a href="perfil.html?id=${record.id}" class="cuidador-card ${cardClassAdd} reveal">
+                                <div class="card-top">
+                                    <div class="foto-anel ${anelClassAdd}">
+                                        ${fotoHTML}
+                                    </div>
+                                </div>
+                                <div class="cuidador-info">
+                                    <div class="badges-container">${seloCategoria}${seloVerificada}${seloCoren}</div>
+                                    <h3 class="cuidador-nome">${nome}</h3>
+                                    <div class="cuidador-stars ${isDiamante ? 'stars-diamante' : ''}">${estrelasHTML}</div>
+                                    <span class="cuidador-tag">${especialidade}</span>
+                                    <span class="cuidador-meta ${isDiamante ? 'meta-diamante' : ''}">${bairro} • ${horas}h de afeto</span>
+                                    <div class="cuidador-preco">
+                                        <span>Preço por plantão 12h:</span>
+                                        <strong>R$ ${precoFinal}</strong>
+                                    </div>
+                                    <div class="btn-ver-perfil">Ver perfil completo <i class="fa-solid fa-arrow-right"></i></div>
+                                </div>
+                            </a>
+                        `;
+                        grid.innerHTML += cardHTML;
+                    });
+                    reveal();
+                }
+            } catch (error) { grid.innerHTML = '<div class="loader" style="color:red;">Erro ao carregar profissionais.</div>'; }
+        }
+        carregarCuidadores();
+    </script>
+</body>
+</html>
