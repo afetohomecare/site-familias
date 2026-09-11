@@ -19,6 +19,7 @@
             --branco: #ffffff;
             --verde-whatsapp: #25D366;
             --ouro: #fbbf24;
+            --verde-online: #10b981;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -94,11 +95,53 @@
         .badge-verificada { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
         .badge-coren { background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; }
         
-        .badge-iniciante { background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
         .badge-bronze { background: #fff7ed; color: #b45309; border: 1px solid #fed7aa; }
         .badge-prata { background: #f8fafc; color: #475569; border: 1px solid #cbd5e1; }
         .badge-ouro { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
         .badge-diamante { background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd; }
+        
+        .badge-novidade { 
+            background: linear-gradient(135deg, #f5f3ff, #ede9fe); 
+            color: var(--lilas-escuro); 
+            border: 1px solid #c4b5fd; 
+            box-shadow: 0 2px 10px rgba(139, 92, 246, 0.18);
+            position: relative;
+            padding-right: 18px;
+        }
+        .badge-novidade::after { 
+            content: ""; 
+            position: absolute; 
+            top: 50%; 
+            right: 7px;
+            transform: translateY(-50%);
+            width: 7px; 
+            height: 7px; 
+            background: var(--ouro); 
+            border-radius: 50%; 
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.9);
+            animation: pulsar-novidade 1.8s infinite;
+        }
+        @keyframes pulsar-novidade { 
+            0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); } 
+            50% { opacity: 0.4; transform: translateY(-50%) scale(1.4); } 
+        }
+
+        .luz-online {
+            width: 7px;
+            height: 7px;
+            background: var(--verde-online);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
+            animation: pulsar-online 1.8s infinite;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+        @keyframes pulsar-online { 
+            0%, 100% { opacity: 1; transform: scale(1); } 
+            50% { opacity: 0.5; transform: scale(1.4); } 
+        }
+        .texto-disponivel { color: var(--verde-online); font-weight: 800; }
 
         .cuidador-nome { font-size: 22px; font-weight: 900; margin-bottom: 8px; color: var(--preto-fonte); letter-spacing: -0.5px; }
         
@@ -143,6 +186,12 @@
         input:focus, textarea:focus, select:focus { border-color: var(--lilas); outline: none; background-color: var(--branco); box-shadow: 0 0 0 5px rgba(139, 92, 246, 0.12); transform: translateY(-2px); }
         .btn-submit { background-color: var(--lilas); color: var(--branco); border: none; padding: 22px; width: 100%; font-size: 18px; font-weight: 900; border-radius: 18px; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2); display: flex; justify-content: center; align-items: center; gap: 10px; }
         .btn-submit:hover { background-color: var(--lilas-escuro); transform: translateY(-3px) scale(1.01); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
+        
+        .checkbox-group { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 30px; text-align: left; }
+        .checkbox-group input[type="checkbox"] { width: 22px; height: 22px; margin: 0; cursor: pointer; accent-color: var(--lilas); flex-shrink: 0; margin-top: 2px;}
+        .checkbox-group label { font-size: 14px; color: var(--cinza-fonte); font-weight: 600; margin: 0; line-height: 1.5; cursor: pointer; display: inline; }
+        .checkbox-group label a { color: var(--lilas-escuro); font-weight: 800; text-decoration: underline; transition: 0.3s; }
+        .checkbox-group label a:hover { color: var(--lilas); }
 
         .btn-wpp { position: fixed; bottom: 30px; right: 30px; z-index: 999; background: var(--verde-whatsapp); color: white; width: 70px; height: 70px; border-radius: 24px; display: flex; justify-content: center; align-items: center; font-size: 38px; box-shadow: 0 15px 30px rgba(37, 211, 102, 0.35); animation: pulse-green 2s infinite; transition: 0.3s; }
         .btn-wpp:hover { transform: scale(1.15); box-shadow: 0 20px 40px rgba(37, 211, 102, 0.5); }
@@ -151,7 +200,6 @@
         .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ========= RODAPÉ JURÍDICO ========= */
         .site-footer { background-color: var(--fundo-site); color: var(--cinza-fonte); padding: 50px 20px 30px; text-align: center; border-top: 1px solid #e2e8f0; margin-top: 60px; }
         .footer-content { max-width: 900px; margin: 0 auto; font-size: 13px; line-height: 1.6; }
         .footer-content p { margin-bottom: 25px; }
@@ -188,17 +236,17 @@
         <div class="floating-shape shape-5" onclick="transformarAfeto(this)"><i class="fa-solid fa-heart"></i></div>
 
         <div class="badge-hero"><i class="fa-solid fa-location-dot"></i> Curitiba e Região</div>
-        <h1>Cuidadores de confiança, indicados com critério.</h1>
+        <h1>A tecnologia que conecta sua família aos melhores cuidadores.</h1>
         <p>Apresentamos profissionais com perfis verificados e avaliações reais para a sua família escolher com tranquilidade.</p>
-        <a href="#orcamento" class="btn-primary">
-            Buscar Cuidador <i class="fa-solid fa-arrow-right"></i>
+        <a href="#cuidadores" class="btn-primary" onclick="scrollToSection(event, 'cuidadores')">
+            Ver Cuidadoras Disponíveis <i class="fa-solid fa-arrow-right"></i>
         </a>
     </section>
 
-    <section class="section" style="padding-top: 40px; padding-bottom: 20px;">
+    <section class="section" id="cuidado-verificado" style="padding-top: 40px; padding-bottom: 20px;">
         <div class="sobre-nos-box reveal">
-            <h2>Conheça as profissionais certas para o seu lar.</h2>
-            <p>A Afeto Homecare é uma vitrine digital dedicada a dar visibilidade a cuidadores com perfis verificados e bem avaliados. Reunimos em um só lugar profissionais que já construíram uma reputação de excelência, para que as famílias encontrem com segurança quem realmente combina com a rotina do seu ente querido. Cada avaliação feita pelas famílias nos ajuda a acompanhar a qualidade do cuidado e a manter a confiança dos perfis que apresentamos.</p>
+            <h2>Cuidado verificado, família tranquila.</h2>
+            <p>A Afeto Homecare é uma plataforma tecnológica que conecta famílias a profissionais autônomos de excelência. Nossa plataforma cruza a sua necessidade com perfis previamente verificados e bem avaliados. Reunimos em um só lugar profissionais que já construíram uma reputação sólida, para que você encontre com segurança quem realmente combina com a rotina do seu ente querido. Cada avaliação feita pelas famílias nos ajuda a manter a transparência e a confiança em nosso ecossistema.</p>
         </div>
     </section>
 
@@ -215,48 +263,57 @@
                 <div class="step-item reveal" style="transition-delay: 0.1s;">
                     <div class="icon-box"><i class="fa-solid fa-clipboard-list"></i></div>
                     <div>
-                        <h3>1. Você conta sua necessidade</h3>
-                        <p>Fale com a nossa equipe e explique qual a rotina e o perfil ideal para o seu familiar.</p>
+                        <h3>1. Compartilhe sua necessidade</h3>
+                        <p>Preencha nosso formulário e explique qual a rotina e o perfil ideal para o seu familiar.</p>
                     </div>
                 </div>
                 <div class="step-item reveal" style="transition-delay: 0.2s;">
                     <div class="icon-box"><i class="fa-solid fa-user-nurse"></i></div>
                     <div>
-                        <h3>2. Apresentamos as indicadas</h3>
-                        <p>Selecionamos e mostramos os perfis verificados de cuidadoras que mais combinam com a sua necessidade.</p>
+                        <h3>2. Perfis verificados</h3>
+                        <p>Nossa plataforma filtra e conecta você aos perfis de cuidadores que mais combinam com a sua necessidade.</p>
                     </div>
                 </div>
                 <div class="step-item reveal" style="transition-delay: 0.3s;">
                     <div class="icon-box"><i class="fa-solid fa-shield-heart"></i></div>
                     <div>
-                        <h3>3. Você escolhe e contrata</h3>
-                        <p>Converse direto com a profissional, tire dúvidas e feche com quem você se sentir mais segura.</p>
+                        <h3>3. Você escolhe com tranquilidade</h3>
+                        <p>Analise as opções de cuidadoras que a Afeto encaminhou e escolha com quem você se sentir mais seguro.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section" style="padding-top: 20px; padding-bottom: 40px;">
+    <section class="section" id="cuidadores" style="padding-top: 20px; padding-bottom: 40px;">
         <div class="section-header reveal">
             <h2>Profissionais em Destaque</h2>
-            <p>Conheça algumas das cuidadoras verificadas em nossa vitrine, prontas para atender sua família.</p>
+            <p>Conheça algumas das cuidadoras verificadas e bem avaliadas pela Afeto.</p>
         </div>
         <div class="cards-grid" id="cuidadores-grid">
             <div class="loader">Buscando profissionais na base de dados... <i class="fa-solid fa-spinner fa-spin"></i></div>
         </div>
     </section>
 
+    <div style="text-align: center; padding: 0 20px 60px 20px;">
+        <a href="#cuidado-verificado" onclick="scrollToSection(event, 'cuidado-verificado')" style="display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--lilas); border: 2px solid var(--lilas); padding: 14px 32px; border-radius: 50px; font-weight: 800; font-size: 15px; transition: 0.3s;" onmouseover="this.style.background='var(--lilas)'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='var(--lilas)'">
+            Como a Afeto funciona
+        </a>
+    </div>
+
     <section class="section" id="orcamento" style="padding-top: 20px;">
         <div class="form-container reveal">
             <h3>Encontrar Cuidador</h3>
-            <p>Deixe seus dados e retornaremos no WhatsApp com as indicações que mais combinam com você!</p>
+            <p>Deixe seus dados e retornaremos no WhatsApp com os perfis que mais combinam com você!</p>
             <form id="form-orcamento" action="https://formspree.io/f/mrpgldae" method="POST">
                 <input type="hidden" name="_next" value="https://wa.me/5541997674866">
+                
                 <label for="nome">Seu Nome:</label>
                 <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                
                 <label for="telefone">WhatsApp:</label>
                 <input type="tel" id="telefone" name="telefone" placeholder="(41) 99999-9999" required>
+                
                 <label for="escala">De quanto tempo de afeto o paciente precisa?</label>
                 <select id="escala" name="escala" required>
                     <option value="" disabled selected hidden>Selecione a rotina ideal...</option>
@@ -268,9 +325,16 @@
                     <option value="fds">Aos finais de semana</option>
                     <option value="outro">Outra rotina / Ainda não tenho certeza</option>
                 </select>
+                
                 <label for="detalhes">O que o paciente precisa hoje?</label>
                 <textarea id="detalhes" name="detalhes" rows="3" placeholder="Ex: Paciente de 75 anos, precisa de auxílio para locomoção..." required></textarea>
-                <button type="submit" class="btn-submit">Solicitar Afeto <i class="fa-solid fa-heart"></i></button>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="aceite-termos" name="aceite-termos" required>
+                    <label for="aceite-termos">Declaro que li e concordo com os <a href="termos.html" target="_blank">Termos de Uso</a> e a <a href="privacidade.html" target="_blank">Política de Privacidade</a> da Afeto, ciente de que a plataforma atua exclusivamente na conexão tecnológica com profissionais autônomos.</label>
+                </div>
+
+                <button type="submit" class="btn-submit">Receber Perfis no WhatsApp <i class="fa-brands fa-whatsapp"></i></button>
             </form>
         </div>
     </section>
@@ -283,26 +347,33 @@
         <div class="faq-container reveal">
             <div class="faq-item">
                 <button class="faq-question">O que a Afeto faz pela minha família? <i class="fa-solid fa-plus faq-icon"></i></button>
-                <div class="faq-answer"><p>Somos uma vitrine digital que reúne perfis de cuidadoras verificadas. Apresentamos e indicamos os profissionais que mais combinam com a necessidade da sua família, para que vocês escolham com mais segurança e tranquilidade.</p></div>
+                <div class="faq-answer"><p>Somos uma plataforma tecnológica que conecta sua família a perfis de cuidadoras autônomas verificadas. Apresentamos os profissionais que mais combinam com a sua necessidade, para que vocês escolham com segurança e tranquilidade.</p></div>
             </div>
             <div class="faq-item">
                 <button class="faq-question">E se o paciente não se adaptar ao cuidador? <i class="fa-solid fa-plus faq-icon"></i></button>
-                <div class="faq-answer"><p>Você conversa diretamente com a profissional antes de fechar qualquer plantão. Se perceber que não houve aquela "sintonia", basta não prosseguir, sem qualquer burocracia. Você é quem decide.</p></div>
+                <div class="faq-answer"><p>Se perceber que não houve a "sintonia" esperada, basta informar à Afeto, sem qualquer burocracia. Como a contratação é entre a sua família e a profissional autônoma, você tem total liberdade para solicitar novas opções de perfil a qualquer momento.</p></div>
             </div>
             <div class="faq-item">
-                <button class="faq-question">Quais são as opções de horários? <i class="fa-solid fa-plus faq-icon"></i></button>
-                <div class="faq-answer"><p>Trabalhamos com plantões de 6 horas, 12 horas (dia ou noite), cobertura contínua de 24 horas, além de acompanhamento aos finais de semana e em hospitais.</p></div>
+                <button class="faq-question">Como funciona o pagamento? <i class="fa-solid fa-plus faq-icon"></i></button>
+                <div class="faq-answer"><p>Após o seu contato, a Afeto encaminha as opções de cuidadoras disponíveis para o seu caso, cada uma com o seu valor já definido pela profissional autônoma. Você escolhe com qual deseja seguir, com total transparência e sem burocracia.</p></div>
             </div>
             <div class="faq-item">
-                <button class="faq-question">Como os perfis são selecionados? <i class="fa-solid fa-plus faq-icon"></i></button>
+                <button class="faq-question">Como os perfis são verificados? <i class="fa-solid fa-plus faq-icon"></i></button>
                 <div class="faq-answer"><p>Fazemos a checagem de antecedentes, validação de referências anteriores e acompanhamos as avaliações reais deixadas pelas famílias. Isso mantém a qualidade e a credibilidade dos perfis que disponibilizamos aqui.</p></div>
             </div>
         </div>
     </section>
 
-    <a href="https://wa.me/5541997674866" target="_blank" class="btn-wpp"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="https://wa.me/5541997674866?text=Ol%C3%A1!%20Gostaria%20de%20entender%20melhor%20como%20a%20plataforma%20da%20Afeto%20funciona." target="_blank" class="btn-wpp"><i class="fa-brands fa-whatsapp"></i></a>
 
-    <!-- ========= RODAPÉ JURÍDICO ========= -->
+    <!-- LINK DISCRETO PARA O SITE DAS CUIDADORAS -->
+    <section style="text-align: center; padding: 20px 20px 0 20px;">
+        <a href="https://afetocuidadores.pages.dev" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--cinza-azulado); font-weight: 700; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--lilas)'" onmouseout="this.style.color='var(--cinza-azulado)'">
+            <i class="fa-solid fa-briefcase"></i>
+            É cuidadora e quer fazer parte da Afeto? <span style="text-decoration: underline;">Clique aqui</span>
+        </a>
+    </section>
+
     <footer class="site-footer">
         <div class="footer-content">
             <p>A Afeto é uma plataforma digital que aproxima famílias de cuidadores de excelência. Nosso papel é fornecer a melhor tecnologia em apresentação de perfis, marketing e segurança de pagamentos para profissionais autônomos. Cada cuidador parceiro atua de forma independente, utilizando nossa vitrine para expandir sua base de clientes, definindo seus próprios horários e repasses com 100% de autonomia.</p>
@@ -317,6 +388,16 @@
     </footer>
 
     <script>
+        function scrollToSection(e, id) {
+            e.preventDefault();
+            const el = document.getElementById(id);
+            if (el) {
+                const yOffset = -90;
+                const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+        }
+
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {
             const btn = item.querySelector('.faq-question');
@@ -338,7 +419,8 @@
             const escalaSel = document.getElementById('escala');
             const escala = escalaSel.options[escalaSel.selectedIndex].text;
             const detalhes = document.getElementById('detalhes').value;
-            let msg = `Olá! Sou *${nome}* e gostaria de encontrar uma cuidadora.\n\n*Rotina:* ${escala}\n*Detalhes:* ${detalhes}`;
+            
+            let msg = `Olá! Sou *${nome}* e gostaria de receber perfis de profissionais.\n\n*Rotina:* ${escala}\n*Detalhes:* ${detalhes}`;
 
             fetch(form.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' } })
             .then(response => {
@@ -380,7 +462,6 @@
             e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
         });
 
-        // ========= INTEGRAÇÃO AIRTABLE =========
         const API_KEY = 'patl042fqFhzdECNS.31172479b55fffd9c3b5c7d7e7b5dee4a19b0b5600eb2273aa02d0ec427b35ae';
         const BASE_ID = 'apphAWeT91l1dMWM5'; 
         const TABLE_NAME = 'Cuidadores';
@@ -401,7 +482,6 @@
                         const nome = f.Nome || "Sem nome";
                         const especialidade = f.Especialidade || "Cuidador(a)";
                         const bairro = f.Bairro || "Curitiba";
-                        const horas = f.Horas || 0;
                         const precoBase = parseFloat(f.Preco) || 0;
                         const precoFinal = Math.ceil(precoBase * 1.15);
                         
@@ -419,8 +499,10 @@
                             else if (catText.includes('ouro')) { cardClassAdd = 'card-ouro'; anelClassAdd = 'anel-ouro'; seloCategoria = `<span class="cuidador-badge badge-ouro"><i class="fa-solid fa-shield-heart"></i> Ouro</span>`; } 
                             else if (catText.includes('prata')) { cardClassAdd = 'card-prata'; anelClassAdd = 'anel-prata'; seloCategoria = `<span class="cuidador-badge badge-prata">⭐ Prata</span>`; } 
                             else if (catText.includes('bronze')) { cardClassAdd = 'card-bronze'; anelClassAdd = 'anel-bronze'; seloCategoria = `<span class="cuidador-badge badge-bronze">🥉 Bronze</span>`; }
-                            else { seloCategoria = `<span class="cuidador-badge badge-iniciante">Iniciante</span>`; }
-                        } else { seloCategoria = `<span class="cuidador-badge badge-iniciante">Iniciante</span>`; }
+                            else { cardClassAdd = ''; anelClassAdd = ''; seloCategoria = `<span class="cuidador-badge badge-novidade"><i class="fa-solid fa-sparkles"></i> Novidade na Afeto</span>`; }
+                        } else { 
+                            cardClassAdd = ''; anelClassAdd = ''; seloCategoria = `<span class="cuidador-badge badge-novidade"><i class="fa-solid fa-sparkles"></i> Novidade na Afeto</span>`;
+                        }
 
                         const seloVerificada = f.Verificada ? `<span class="cuidador-badge badge-verificada"><i class="fa-solid fa-check"></i> Verificada</span>` : '';
                         const seloCoren = f.COREN ? `<span class="cuidador-badge badge-coren"><i class="fa-solid fa-id-card"></i> COREN</span>` : '';
@@ -434,6 +516,14 @@
                             estrelasHTML = `<span style="display: flex; gap: 2px;">${estrelasStr}</span> <span class="nota-numero" style="margin-left: 5px;">${notaValor.toFixed(1)}</span>`;
                         } else { estrelasHTML = `<span style="font-size: 13px; color: var(--cinza-fonte); font-weight: 700;">Ainda não avaliada</span>`; }
 
+                        let horasAfeto = parseInt(f.Horas) || 0;
+                        let displayHoras = "";
+                        if (horasAfeto >= 24) {
+                            displayHoras = `<span class="cuidador-meta ${isDiamante ? 'meta-diamante' : ''}">${bairro} • ${horasAfeto}h de afeto</span>`;
+                        } else {
+                            displayHoras = `<span class="cuidador-meta ${isDiamante ? 'meta-diamante' : ''}">${bairro} • <span class="texto-disponivel"><span class="luz-online"></span>Disponível</span></span>`;
+                        }
+
                         const cardHTML = `
                             <a href="perfil.html?id=${record.id}" class="cuidador-card ${cardClassAdd} reveal">
                                 <div class="card-top">
@@ -446,7 +536,7 @@
                                     <h3 class="cuidador-nome">${nome}</h3>
                                     <div class="cuidador-stars ${isDiamante ? 'stars-diamante' : ''}">${estrelasHTML}</div>
                                     <span class="cuidador-tag">${especialidade}</span>
-                                    <span class="cuidador-meta ${isDiamante ? 'meta-diamante' : ''}">${bairro} • ${horas}h de afeto</span>
+                                    ${displayHoras}
                                     <div class="cuidador-preco">
                                         <span>Preço por plantão 12h:</span>
                                         <strong>R$ ${precoFinal}</strong>
