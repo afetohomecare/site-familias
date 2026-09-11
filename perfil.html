@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil Profissional - Afeto Homecare</title>
     
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Conheça essa profissional - Afeto Homecare">
+    <meta property="og:description" content="Profissional verificada e avaliada por famílias reais. Veja o perfil completo.">
+    <meta property="og:image" content="https://afetohomecare.pages.dev/og-perfil.jpg">
+    <meta property="og:url" content="https://afetohomecare.pages.dev/perfil.html">
+    <meta name="twitter:card" content="summary_large_image">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://api.airtable.com">
@@ -302,12 +309,11 @@
                         `;
                     }
 
-                    // ========= CÓDIGO INTERNO DA REFERÊNCIA =========
+                    // CÓDIGO INTERNO DA REFERÊNCIA
                     const iniciais = (f.Nome || "XX").split(' ').filter(p => p.length > 0).map(p => p[0]).slice(0, 2).join('').toUpperCase();
                     const precoFamilia = Math.ceil(precoBase * 1.15);
                     const codigoRef = `${iniciais}-${precoFamilia}`;
                     const mensagemWpp = `Olá! Vi o perfil de *${f.Nome}* na Afeto e gostaria de conversar sobre contratação.%0A%0A🔖 Ref: %23${codigoRef}%0A📍 ${f.Bairro || 'Curitiba'}%0A%0A📌 Perfil: ${linkAtual}`;
-                    // ========= FIM CÓDIGO INTERNO =========
 
                     container.innerHTML = `
                         <div class="foto-perfil-container">
