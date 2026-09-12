@@ -38,17 +38,13 @@ body {
     flex-direction: column; 
     align-items: center; 
     min-height: 100vh; 
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
 }
 
 header { 
     position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; 
     padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; 
     background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(0,0,0,0.03); 
-    contain: layout style;
 }
 .logo { font-size: 28px; font-weight: 900; color: var(--lilas); letter-spacing: -1px; text-decoration: none; }
 .logo span { font-weight: 300; color: var(--cinza-azulado); }
@@ -56,24 +52,20 @@ header {
     padding: 10px 24px; border-radius: 50px; font-weight: 800; color: var(--lilas); 
     border: 2px solid var(--lilas); transition: 0.3s; background: transparent; 
     font-size: 15px; text-decoration: none; 
-    -webkit-tap-highlight-color: transparent;
 }
 .btn-outline:hover { background: var(--lilas); color: var(--branco); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3); transform: translateY(-2px); }
 
 .scroll-progress {
     position: fixed; top: 0; left: 0; height: 3px;
     background: linear-gradient(90deg, var(--lilas), var(--lilas-escuro));
-    z-index: 9999; width: 0%;
+    z-index: 9999; width: 0%; transition: width 0.1s ease-out;
     box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-    will-change: width;
-    transform: translateZ(0);
 }
 
 .perfil-card { 
     max-width: 550px; width: 100%; border-radius: 35px; overflow: hidden; 
     margin-bottom: 20px; transition: all 0.4s ease; display: flex; flex-direction: column; 
     position: relative; background: var(--branco);
-    contain: layout style paint;
 }
 
 .card-iniciante { border: 2px solid #e2e8f0; box-shadow: 0 15px 40px rgba(139, 92, 246, 0.06); }
@@ -88,13 +80,11 @@ header {
     color: white; padding: 12px 20px;
     font-size: 14px; font-weight: 900; letter-spacing: 0.3px;
     animation: pulseDisponivel 2.5s ease-in-out infinite;
-    will-change: background;
 }
 .banner-disponivel .dot {
     width: 10px; height: 10px; background: white; border-radius: 50%;
     box-shadow: 0 0 12px rgba(255,255,255,0.9);
     animation: pulseDot 1.5s ease-in-out infinite;
-    will-change: transform, opacity;
 }
 @keyframes pulseDisponivel {
     0%, 100% { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
@@ -178,8 +168,6 @@ header {
 .bio-box { 
     background: #ffffff; border-left: 4px solid var(--lilas); padding: 20px; 
     border-radius: 12px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); 
-    content-visibility: auto;
-    contain-intrinsic-size: auto 150px;
 }
 .bio-box h4 { 
     font-size: 15px; color: var(--lilas-escuro); margin-bottom: 8px; 
@@ -224,7 +212,6 @@ header {
     color: var(--lilas); font-size: 18px;
     opacity: 0; transform: scale(0) rotate(-180deg);
     display: inline-block;
-    will-change: transform, opacity;
 }
 .estrela-anim.animar {
     animation: estrelaAparece 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -272,8 +259,6 @@ header {
     text-decoration: none; margin-top: 30px; transition: 0.3s; font-size: 16px; 
     box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); 
     border: none; cursor: pointer; font-family: 'Nunito', sans-serif;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
 }
 .btn-acao:hover { background: #1da851; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4); }
 
@@ -282,8 +267,6 @@ header {
     border: 2px solid var(--lilas); text-align: center; padding: 15px; 
     border-radius: 50px; font-weight: 900; margin-top: 15px; cursor: pointer; 
     transition: 0.3s; font-size: 15px; font-family: 'Nunito', sans-serif;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
 }
 .btn-compartilhar:hover { background: var(--lilas); color: var(--branco); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2); }
 
@@ -305,9 +288,6 @@ header {
     text-decoration: none; color: inherit; border: 1px solid #e2e8f0;
     box-shadow: 0 5px 15px rgba(0,0,0,0.03); transition: 0.3s; cursor: pointer;
     display: flex; flex-direction: column; align-items: center;
-    content-visibility: auto;
-    contain-intrinsic-size: auto 200px;
-    -webkit-tap-highlight-color: transparent;
 }
 .mini-card:hover {
     transform: translateY(-5px);
@@ -344,17 +324,13 @@ header {
 .reveal-item {
     opacity: 0; transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease;
-    will-change: opacity, transform;
 }
 .reveal-item.visivel { opacity: 1; transform: translateY(0); }
 
 .site-footer { 
     background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px);
     color: var(--cinza-fonte); padding: 40px 20px; text-align: center; 
     border-top: 1px solid #e2e8f0; width: 100%; margin-top: auto; 
-    content-visibility: auto;
-    contain-intrinsic-size: auto 400px;
 }
 .footer-content { max-width: 900px; margin: 0 auto; font-size: 13px; line-height: 1.6; }
 .footer-content p { margin-bottom: 25px; }
@@ -369,7 +345,6 @@ header {
     color: white; display: flex; justify-content: center; align-items: center; 
     font-size: 22px; transition: 0.3s; text-decoration: none; 
     box-shadow: 0 8px 20px rgba(139, 92, 246, 0.25); 
-    -webkit-tap-highlight-color: transparent;
 }
 .footer-social a:hover { transform: translateY(-4px) scale(1.08); }
 .footer-info { 
@@ -387,49 +362,8 @@ header {
     color: var(--lilas-escuro); font-weight: 800; text-decoration: none; 
     display: inline-flex; align-items: center; gap: 5px; 
     margin-top: 20px; margin-bottom: 40px; font-size: 15px; transition: 0.2s;
-    -webkit-tap-highlight-color: transparent;
 }
 .voltar-link:hover { transform: translateX(-3px); color: var(--lilas); }
-
-/* ========== ACESSIBILIDADE: RESPEITA PREFERÊNCIA DE MOVIMENTO ========== */
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-    .banner-disponivel { animation: none; background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
-    .banner-disponivel .dot { animation: none; }
-    .badge-novidade::after { animation: none; }
-    .luz-online { animation: none; }
-    .estrela-anim { opacity: 1; transform: none; }
-    .nota-numero-anim { opacity: 1; }
-    .comentario-card { opacity: 1; transform: none; }
-    .reveal-item { opacity: 1; transform: none; }
-}
-
-/* ========== TABLET (601px - 900px) ========== */
-@media (min-width: 601px) and (max-width: 900px) {
-    body { padding: 100px 15px 0 15px; }
-    .perfil-card { max-width: 100%; border-radius: 30px; }
-    .foto-anel { width: 180px; height: 180px; }
-    .perfil-corpo { padding: 0 30px 30px 30px; }
-    .nome-profissional { font-size: 26px; }
-    .veja-tambem { max-width: 100%; }
-}
-
-/* ========== MOBILE PEQUENO (até 400px) ========== */
-@media (max-width: 400px) {
-    body { padding: 90px 12px 0 12px; }
-    .perfil-card { border-radius: 28px; }
-    .foto-anel { width: 150px; height: 150px; }
-    .nome-profissional { font-size: 22px; }
-    .perfil-corpo { padding: 0 18px 18px 18px; }
-    .tag-profissional { font-size: 14px; }
-    .cuidador-badge { font-size: 10px; padding: 4px 10px; }
-    .banner-disponivel { font-size: 12px; padding: 10px 15px; }
-}
 
 @media (max-width: 600px) {
     .veja-tambem-grid { gap: 8px; }
@@ -467,54 +401,26 @@ header {
 <a href="index.html" class="voltar-link"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
 
 <script>
-// =========================================================
-// CONFIGURAÇÕES
-// =========================================================
 const API_KEY = 'patl042fqFhzdECNS.31172479b55fffd9c3b5c7d7e7b5dee4a19b0b5600eb2273aa02d0ec427b35ae';
 const BASE_ID = 'apphAWeT91l1dMWM5';
 const TABLE_NAME = 'Cuidadores';
-const CACHE_KEY = 'afeto_cuidadores_cache_v1';
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutos
 
 var params = new URLSearchParams(window.location.search);
 var recordId = params.get('id');
 var todosRegistros = [];
 
 // =========================================================
-// CACHE INTELIGENTE (sessionStorage)
-// =========================================================
-function getCache() {
-    try {
-        var raw = sessionStorage.getItem(CACHE_KEY);
-        if (!raw) return null;
-        var obj = JSON.parse(raw);
-        if (Date.now() - obj.timestamp > CACHE_TTL) {
-            sessionStorage.removeItem(CACHE_KEY);
-            return null;
-        }
-        return obj.records;
-    } catch (e) { return null; }
-}
-
-function setCache(records) {
-    try {
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify({
-            timestamp: Date.now(),
-            records: records
-        }));
-    } catch (e) { /* silencioso */ }
-}
-
-// =========================================================
-// NOME ÚNICO COM DIFERENCIAÇÃO
+// GERADOR DE NOME ÚNICO (com diferenciação em caso de clash)
 // =========================================================
 function gerarNomeUnico(nome, todosNomes) {
     if (!nome) return '';
     var nomeLimpo = nome.trim();
     var partes = nomeLimpo.split(/\s+/);
 
+    // Nome curto: primeiro + inicial do segundo
     var nomeCurto = partes[0] + (partes[1] ? ' ' + partes[1].charAt(0).toUpperCase() + '.' : '');
 
+    // Encontra o "grupo" — todos que têm a mesma abreviação
     var grupo = [];
     for (var i = 0; i < todosNomes.length; i++) {
         var n = (todosNomes[i] || '').trim();
@@ -524,33 +430,51 @@ function gerarNomeUnico(nome, todosNomes) {
         if (curto === nomeCurto) grupo.push(n);
     }
 
+    // Sem clash — retorna o nome curto
     if (grupo.length <= 1) return nomeCurto;
 
+    // Com clash: 1º mantém curto, 2º+ abre o nome
     var posicao = grupo.indexOf(nomeLimpo);
+
     if (posicao === 0) return nomeCurto;
 
     if (posicao === 1) {
-        if (partes.length >= 3) return partes[0] + ' ' + partes[1] + ' ' + partes[2].charAt(0).toUpperCase() + '.';
-        if (partes.length === 2) return partes[0] + ' ' + partes[1];
+        // Segundo: primeiro + segundo completo + inicial do terceiro (se tiver)
+        if (partes.length >= 3) {
+            return partes[0] + ' ' + partes[1] + ' ' + partes[2].charAt(0).toUpperCase() + '.';
+        } else if (partes.length === 2) {
+            return partes[0] + ' ' + partes[1];
+        }
         return nomeCurto;
     }
 
     if (posicao === 2) {
-        if (partes.length >= 4) return partes[0] + ' ' + partes[1] + ' ' + partes[2] + ' ' + partes[3].charAt(0).toUpperCase() + '.';
-        if (partes.length === 3) return partes[0] + ' ' + partes[1] + ' ' + partes[2];
+        // Terceiro: primeiro + segundo + terceiro + inicial do quarto
+        if (partes.length >= 4) {
+            return partes[0] + ' ' + partes[1] + ' ' + partes[2] + ' ' + partes[3].charAt(0).toUpperCase() + '.';
+        } else if (partes.length === 3) {
+            return partes[0] + ' ' + partes[1] + ' ' + partes[2];
+        }
         return partes.slice(0, 3).join(' ');
     }
 
+    // Quarto+ : nome completo
     return nomeLimpo;
 }
 
 function extrairComentarios(campo) {
     if (!campo) return [];
-    if (Array.isArray(campo)) return campo.map(function(c) { return String(c).trim(); }).filter(function(c) { return c; });
+    if (Array.isArray(campo)) {
+        return campo.map(function(c) { return String(c).trim(); }).filter(function(c) { return c; });
+    }
     var texto = String(campo).trim();
     if (!texto) return [];
-    if (texto.indexOf('|||') !== -1) return texto.split('|||').map(function(c) { return c.trim(); }).filter(function(c) { return c; });
-    if (texto.indexOf('\n\n') !== -1) return texto.split(/\n\s*\n/).map(function(c) { return c.trim(); }).filter(function(c) { return c; });
+    if (texto.indexOf('|||') !== -1) {
+        return texto.split('|||').map(function(c) { return c.trim(); }).filter(function(c) { return c; });
+    }
+    if (texto.indexOf('\n\n') !== -1) {
+        return texto.split(/\n\s*\n/).map(function(c) { return c.trim(); }).filter(function(c) { return c; });
+    }
     return [texto];
 }
 
@@ -560,9 +484,7 @@ function resizeAirtablePhoto(url, width, height) {
     return url + sep + 'width=' + width + '&height=' + height + '&fit=cover';
 }
 
-// =========================================================
-// CARREGAR DADOS (com cache e fields otimizados)
-// =========================================================
+// ========== CARREGAR TUDO ==========
 async function carregarTudo() {
     var container = document.getElementById('cardPerfil');
 
@@ -571,22 +493,7 @@ async function carregarTudo() {
         return;
     }
 
-    // Tenta pegar do cache primeiro
-    var cache = getCache();
-    if (cache) {
-        todosRegistros = cache;
-        processarDados();
-        return;
-    }
-
-    // Só baixa os campos necessários (economia de banda)
-    var fields = [
-        'Nome', 'Especialidade', 'Bairro', 'Horas', 'Preco', 'Foto',
-        'Categoria', 'Verificada', 'COREN', 'Nota', 'Apresentacao',
-        'Subespecialidades', 'Comentarios', 'Turno', 'WhatsAppAgencia'
-    ];
-    var fieldsQuery = fields.map(function(f) { return 'fields%5B%5D=' + encodeURIComponent(f); }).join('&');
-    var url = 'https://api.airtable.com/v0/' + BASE_ID + '/' + TABLE_NAME + '?' + fieldsQuery;
+    var url = 'https://api.airtable.com/v0/' + BASE_ID + '/' + TABLE_NAME;
 
     try {
         var response = await fetch(url, { headers: { Authorization: 'Bearer ' + API_KEY } });
@@ -595,29 +502,22 @@ async function carregarTudo() {
         if (!data.records) throw new Error('Sem dados');
 
         todosRegistros = data.records;
-        setCache(todosRegistros);
-        processarDados();
+        var perfilAtual = todosRegistros.find(function(r) { return r.id === recordId; });
+
+        if (!perfilAtual) {
+            container.innerHTML = '<div style="padding: 60px; text-align: center;"><h2>Profissional não encontrada</h2></div>';
+            return;
+        }
+
+        renderizarPerfil(perfilAtual);
+        renderizarVejaTambem(perfilAtual, todosRegistros);
 
     } catch (error) {
         container.innerHTML = '<div style="padding: 60px; text-align: center; color:red;">Erro ao carregar o perfil.</div>';
     }
 }
 
-function processarDados() {
-    var perfilAtual = todosRegistros.find(function(r) { return r.id === recordId; });
-
-    if (!perfilAtual) {
-        document.getElementById('cardPerfil').innerHTML = '<div style="padding: 60px; text-align: center;"><h2>Profissional não encontrada</h2></div>';
-        return;
-    }
-
-    renderizarPerfil(perfilAtual);
-    renderizarVejaTambem(perfilAtual, todosRegistros);
-}
-
-// =========================================================
-// RENDERIZAR PERFIL
-// =========================================================
+// ========== RENDERIZAR PERFIL ==========
 function renderizarPerfil(record) {
     var container = document.getElementById('cardPerfil');
     var f = record.fields;
@@ -626,17 +526,18 @@ function renderizarPerfil(record) {
     var precoBase = parseFloat(f.Preco) || 0;
     var horasNum = parseInt(f.Horas) || 0;
 
+    // NOME ÚNICO — lista de todos os nomes para checar clash
     var todosNomes = todosRegistros.map(function(r) { return (r.fields && r.fields.Nome) || ''; });
     var nomeExibicao = gerarNomeUnico(f.Nome || 'Sem nome', todosNomes);
 
-    // FOTO com srcset (navegador escolhe tamanho ideal)
+    // Foto
     var fotoHTML = '<i class="fa-solid fa-user"></i>';
     if (f.Foto && f.Foto.length > 0) {
-        var fotoPequena = resizeAirtablePhoto(f.Foto[0].url, 300, 400);
-        var fotoMedia = resizeAirtablePhoto(f.Foto[0].url, 600, 800);
-        fotoHTML = '<img src="' + fotoMedia + '" srcset="' + fotoPequena + ' 300w, ' + fotoMedia + ' 600w" sizes="200px" alt="' + nomeExibicao + '" loading="eager" decoding="async" fetchpriority="high">';
+        var fotoOtimizada = resizeAirtablePhoto(f.Foto[0].url, 600, 800);
+        fotoHTML = '<img src="' + fotoOtimizada + '" alt="' + nomeExibicao + '" loading="lazy" decoding="async">';
     }
 
+    // Categoria
     var seloCategoria = '';
     var cardClassAdd = 'card-padrao';
     var anelClassAdd = 'anel-iniciante';
@@ -687,6 +588,7 @@ function renderizarPerfil(record) {
         linhaHorasHTML = '<div class="info-linha"><span>Status</span><strong class="tag-disponivel"><span class="luz-online"></span> Disponível</strong></div>';
     }
 
+    // Comentários múltiplos
     var comentarios = extrairComentarios(f.Comentarios);
     var comentariosHTML = '';
     if (comentarios.length > 0) {
@@ -696,6 +598,7 @@ function renderizarPerfil(record) {
         comentariosHTML = '<div class="comentarios-secao reveal-item"><div class="comentarios-titulo"><i class="fa-solid fa-star" style="color: var(--lilas);"></i> O que as famílias dizem:</div>' + cardsHTML + '</div>';
     }
 
+    // Código interno
     var iniciais = (f.Nome || 'XX').split(' ').filter(function(p) { return p.length > 0; }).map(function(p) { return p[0]; }).slice(0, 2).join('').toUpperCase();
     var precoFamilia = Math.ceil(precoBase * 1.15);
     var codigoRef = iniciais + '-' + precoFamilia;
@@ -737,21 +640,15 @@ function renderizarPerfil(record) {
         }, 1000);
     }, 300);
 
-    // IntersectionObserver com rootMargin para antecipar
     var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visivel');
-                observer.unobserve(entry.target); // Para de observar depois de revelar
-            }
+            if (entry.isIntersecting) entry.target.classList.add('visivel');
         });
-    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.15 });
     document.querySelectorAll('.reveal-item').forEach(function(el) { observer.observe(el); });
 }
 
-// =========================================================
-// VEJA TAMBÉM
-// =========================================================
+// ========== VEJA TAMBÉM ==========
 function renderizarVejaTambem(atual, todos) {
     var f = atual.fields;
     var bairroAtual = f.Bairro || '';
@@ -786,6 +683,7 @@ function renderizarVejaTambem(atual, todos) {
 
     if (selecionados.length === 0) return;
 
+    // Lista completa de nomes para diferenciação consistente
     var todosNomes = todos.map(function(r) { return (r.fields && r.fields.Nome) || ''; });
 
     var grid = document.getElementById('vejaTambemGrid');
@@ -800,8 +698,8 @@ function renderizarVejaTambem(atual, todos) {
 
         var fotoHTML = '<i class="fa-solid fa-user"></i>';
         if (rf.Foto && rf.Foto.length > 0) {
-            var fotoOt = resizeAirtablePhoto(rf.Foto[0].url, 150, 150);
-            fotoHTML = '<img src="' + fotoOt + '" alt="' + nomeExibicao + '" loading="lazy" decoding="async" width="70" height="70">';
+            var fotoOt = resizeAirtablePhoto(rf.Foto[0].url, 200, 200);
+            fotoHTML = '<img src="' + fotoOt + '" alt="' + nomeExibicao + '" loading="lazy" decoding="async">';
         }
 
         html += 
@@ -818,9 +716,7 @@ function renderizarVejaTambem(atual, todos) {
     document.getElementById('vejaTambem').classList.add('ativo');
 }
 
-// =========================================================
-// COMPARTILHAR
-// =========================================================
+// ========== COMPARTILHAR ==========
 async function compartilharPerfil() {
     var nomeEl = document.querySelector('.nome-profissional');
     var nomeProf = nomeEl ? nomeEl.innerText : 'esta profissional';
@@ -848,31 +744,15 @@ async function compartilharPerfil() {
     }
 }
 
-// =========================================================
-// SCROLL PROGRESS (com requestAnimationFrame - 60fps)
-// =========================================================
-var scrollTicking = false;
-var scrollProgressEl = document.getElementById('scrollProgress');
-
-function atualizarScrollProgress() {
-    var winScroll = window.pageYOffset || document.documentElement.scrollTop;
+// ========== SCROLL PROGRESS ==========
+window.addEventListener('scroll', function() {
+    var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     if (height > 0) {
-        scrollProgressEl.style.width = ((winScroll / height) * 100) + '%';
+        document.getElementById('scrollProgress').style.width = ((winScroll / height) * 100) + '%';
     }
-    scrollTicking = false;
-}
+});
 
-window.addEventListener('scroll', function() {
-    if (!scrollTicking) {
-        window.requestAnimationFrame(atualizarScrollProgress);
-        scrollTicking = true;
-    }
-}, { passive: true });
-
-// =========================================================
-// INICIAR
-// =========================================================
 carregarTudo();
 </script>
 
