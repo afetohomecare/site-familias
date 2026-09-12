@@ -246,16 +246,20 @@
         .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .site-footer { background-color: var(--fundo-site); color: var(--cinza-fonte); padding: 50px 20px 30px; text-align: center; border-top: 1px solid #e2e8f0; margin-top: 60px; }
+        /* ==================== FOOTER PADRONIZADO ==================== */
+        .site-footer { background-color: var(--fundo-site); color: var(--cinza-fonte); padding: 50px 20px 30px; text-align: center; border-top: 1px solid #e2e8f0; margin-top: 60px; width: 100%; }
         .footer-content { max-width: 900px; margin: 0 auto; font-size: 13px; line-height: 1.6; }
         .footer-content p { margin-bottom: 25px; }
         .footer-aviso { font-size: 11px; color: var(--cinza-azulado); font-weight: 600; line-height: 1.5; font-style: italic; padding: 0 20px; }
         .footer-social { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
         .footer-social a { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--lilas), var(--lilas-escuro)); color: white; display: flex; justify-content: center; align-items: center; font-size: 22px; transition: 0.3s; text-decoration: none; box-shadow: 0 8px 20px rgba(139, 92, 246, 0.25); }
         .footer-social a:hover { transform: translateY(-4px) scale(1.08); box-shadow: 0 12px 28px rgba(139, 92, 246, 0.45); }
+        .footer-info { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-bottom: 25px; font-size: 14px; color: var(--cinza-fonte); font-weight: 700; }
+        .footer-info i { color: var(--lilas); margin-right: 6px; }
         .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
         .footer-links a { color: var(--lilas-escuro); font-weight: 800; font-size: 14px; transition: 0.3s; }
         .footer-links a:hover { color: var(--lilas); text-decoration: underline; }
+        .footer-legal { font-size: 11px; color: var(--cinza-azulado); border-top: 1px solid #e2e8f0; padding-top: 20px; }
 
         @media (max-width: 900px) {
             .hero { margin: 95px 15px 0 15px; width: calc(100% - 30px); padding: 60px 15px 80px; }
@@ -444,19 +448,43 @@
         </a>
     </section>
 
+    <!-- ==================== FOOTER PADRONIZADO ==================== -->
     <footer class="site-footer">
         <div class="footer-content">
-            <p class="footer-aviso">A Afeto é uma plataforma de divulgação e conexão. Não prestamos serviços de saúde ou cuidado. As informações, valores e disponibilidades apresentados nos perfis são de responsabilidade das profissionais autônomas cadastradas.</p>
-            <p>A Afeto é uma plataforma digital que aproxima famílias de cuidadores de excelência. Nosso papel é fornecer a melhor tecnologia em apresentação de perfis, marketing e segurança de pagamentos para profissionais autônomos. Cada cuidador parceiro atua de forma independente, utilizando nossa vitrine para expandir sua base de clientes, definindo seus próprios horários e repasses com 100% de autonomia.</p>
+
+            <p class="footer-aviso">
+                A Afeto atua como plataforma de conexão entre famílias e cuidadoras autônomas. Não executamos serviços de saúde ou cuidado — as informações dos perfis são de responsabilidade das profissionais cadastradas.
+            </p>
+
+            <p>
+                A Afeto é uma plataforma digital que aproxima famílias de cuidadores com boa reputação, em um ambiente seguro e transparente. Nosso papel é fornecer a melhor tecnologia em apresentação de perfis, marketing e segurança de pagamentos para profissionais autônomos. Cada cuidador parceiro atua de forma independente, utilizando nossa vitrine para expandir sua base de clientes, definindo seus próprios horários e repasses com 100% de autonomia.
+            </p>
+
             <div class="footer-social">
                 <a href="https://www.instagram.com/afetohomecareoficial" target="_blank" aria-label="Instagram Afeto Homecare">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
+                <a href="https://wa.me/5541997674866?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Afeto." target="_blank" aria-label="WhatsApp Afeto Homecare">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="mailto:afetohomecareoficial@gmail.com" aria-label="E-mail Afeto Homecare">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
             </div>
+
+            <div class="footer-info">
+                <span><i class="fa-solid fa-location-dot"></i> Curitiba-PR</span>
+            </div>
+
             <div class="footer-links">
                 <a href="termos.html">Termos de Uso</a>
                 <a href="privacidade.html">Política de Privacidade</a>
             </div>
+
+            <div class="footer-legal">
+                Afeto Homecare &copy; 2026. Todos os direitos reservados.
+            </div>
+
         </div>
     </footer>
 
@@ -481,7 +509,6 @@
             });
         });
 
-        // FORMULÁRIO: WhatsApp PRIMEIRO, Formspree como backup
         const form = document.getElementById('form-orcamento');
         const btnSubmit = form.querySelector('.btn-submit');
         form.addEventListener('submit', function(e) {
