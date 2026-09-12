@@ -385,7 +385,7 @@ header {
 
 <header>
     <a href="index.html" class="logo">Afeto<span>Homecare</span></a>
-    <a href="index.html#orcamento" class="btn-outline">Fale Conosco</a>
+    <a href="index.html#cuidadores" class="btn-outline">Ver Profissionais</a>
 </header>
 
 <div id="cardPerfil" class="perfil-card card-padrao">
@@ -417,10 +417,8 @@ function gerarNomeUnico(nome, todosNomes) {
     var nomeLimpo = nome.trim();
     var partes = nomeLimpo.split(/\s+/);
 
-    // Nome curto: primeiro + inicial do segundo
     var nomeCurto = partes[0] + (partes[1] ? ' ' + partes[1].charAt(0).toUpperCase() + '.' : '');
 
-    // Encontra o "grupo" — todos que têm a mesma abreviação
     var grupo = [];
     for (var i = 0; i < todosNomes.length; i++) {
         var n = (todosNomes[i] || '').trim();
@@ -430,16 +428,13 @@ function gerarNomeUnico(nome, todosNomes) {
         if (curto === nomeCurto) grupo.push(n);
     }
 
-    // Sem clash — retorna o nome curto
     if (grupo.length <= 1) return nomeCurto;
 
-    // Com clash: 1º mantém curto, 2º+ abre o nome
     var posicao = grupo.indexOf(nomeLimpo);
 
     if (posicao === 0) return nomeCurto;
 
     if (posicao === 1) {
-        // Segundo: primeiro + segundo completo + inicial do terceiro (se tiver)
         if (partes.length >= 3) {
             return partes[0] + ' ' + partes[1] + ' ' + partes[2].charAt(0).toUpperCase() + '.';
         } else if (partes.length === 2) {
@@ -449,7 +444,6 @@ function gerarNomeUnico(nome, todosNomes) {
     }
 
     if (posicao === 2) {
-        // Terceiro: primeiro + segundo + terceiro + inicial do quarto
         if (partes.length >= 4) {
             return partes[0] + ' ' + partes[1] + ' ' + partes[2] + ' ' + partes[3].charAt(0).toUpperCase() + '.';
         } else if (partes.length === 3) {
@@ -458,7 +452,6 @@ function gerarNomeUnico(nome, todosNomes) {
         return partes.slice(0, 3).join(' ');
     }
 
-    // Quarto+ : nome completo
     return nomeLimpo;
 }
 
@@ -526,18 +519,15 @@ function renderizarPerfil(record) {
     var precoBase = parseFloat(f.Preco) || 0;
     var horasNum = parseInt(f.Horas) || 0;
 
-    // NOME ÚNICO — lista de todos os nomes para checar clash
     var todosNomes = todosRegistros.map(function(r) { return (r.fields && r.fields.Nome) || ''; });
     var nomeExibicao = gerarNomeUnico(f.Nome || 'Sem nome', todosNomes);
 
-    // Foto
     var fotoHTML = '<i class="fa-solid fa-user"></i>';
     if (f.Foto && f.Foto.length > 0) {
         var fotoOtimizada = resizeAirtablePhoto(f.Foto[0].url, 600, 800);
         fotoHTML = '<img src="' + fotoOtimizada + '" alt="' + nomeExibicao + '" loading="lazy" decoding="async">';
     }
 
-    // Categoria
     var seloCategoria = '';
     var cardClassAdd = 'card-padrao';
     var anelClassAdd = 'anel-iniciante';
@@ -588,7 +578,6 @@ function renderizarPerfil(record) {
         linhaHorasHTML = '<div class="info-linha"><span>Status</span><strong class="tag-disponivel"><span class="luz-online"></span> Disponível</strong></div>';
     }
 
-    // Comentários múltiplos
     var comentarios = extrairComentarios(f.Comentarios);
     var comentariosHTML = '';
     if (comentarios.length > 0) {
@@ -598,7 +587,6 @@ function renderizarPerfil(record) {
         comentariosHTML = '<div class="comentarios-secao reveal-item"><div class="comentarios-titulo"><i class="fa-solid fa-star" style="color: var(--lilas);"></i> O que as famílias dizem:</div>' + cardsHTML + '</div>';
     }
 
-    // Código interno
     var iniciais = (f.Nome || 'XX').split(' ').filter(function(p) { return p.length > 0; }).map(function(p) { return p[0]; }).slice(0, 2).join('').toUpperCase();
     var precoFamilia = Math.ceil(precoBase * 1.15);
     var codigoRef = iniciais + '-' + precoFamilia;
@@ -683,7 +671,6 @@ function renderizarVejaTambem(atual, todos) {
 
     if (selecionados.length === 0) return;
 
-    // Lista completa de nomes para diferenciação consistente
     var todosNomes = todos.map(function(r) { return (r.fields && r.fields.Nome) || ''; });
 
     var grid = document.getElementById('vejaTambemGrid');
@@ -755,6 +742,45 @@ window.addEventListener('scroll', function() {
 
 carregarTudo();
 </script>
+
+<footer class="site-footer">
+    <div class="footer-content">
+        
+        <p class="footer-aviso">
+            A Afeto atua como plataforma de conexão entre famílias e cuidadoras autônomas. Não executamos serviços de saúde ou cuidado — as informações dos perfis são de responsabilidade das profissionais cadastradas.
+        </p>
+        
+        <p>
+            A Afeto é uma plataforma digital que aproxima famílias de cuidadores com boa reputação, em um ambiente seguro e transparente. Nosso papel é fornecer a melhor tecnologia em apresentação de perfis, marketing e segurança de pagamentos para profissionais autônomos. Cada cuidador parceiro atua de forma independente, utilizando nossa vitrine para expandir sua base de clientes, definindo seus próprios horários e repasses com 100% de autonomia.
+        </p>
+        
+        <div class="footer-social">
+            <a href="https://www.instagram.com/afetohomecareoficial" target="_blank" aria-label="Instagram Afeto Homecare">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/5541997674866?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Afeto." target="_blank" aria-label="WhatsApp Afeto Homecare">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+            <a href="mailto:afetohomecareoficial@gmail.com" aria-label="E-mail Afeto Homecare">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
+        </div>
+        
+        <div class="footer-info">
+            <span><i class="fa-solid fa-location-dot"></i> Curitiba-PR</span>
+        </div>
+        
+        <div class="footer-links">
+            <a href="termos.html">Termos de Uso</a>
+            <a href="privacidade.html">Política de Privacidade</a>
+        </div>
+        
+        <div class="footer-legal">
+            Afeto Homecare &copy; 2026. Todos os direitos reservados.
+        </div>
+        
+    </div>
+</footer>
 
 </body>
 </html>
