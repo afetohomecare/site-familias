@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afeto Homecare - Cuidadores de Confiança em Curitiba</title>
+    <title>Afeto - Cuidadores de Confiança em Curitiba</title>
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Afeto Homecare - Cuidadores verificados em Curitiba">
+    <meta property="og:title" content="Afeto - Cuidadores verificados em Curitiba">
     <meta property="og:description" content="Encontre cuidadores verificados e bem avaliados para a sua família.">
     <meta property="og:image" content="https://afetohomecare.pages.dev/og-home.jpg">
     <meta property="og:url" content="https://afetohomecare.pages.dev">
@@ -33,6 +33,7 @@
             --verde-whatsapp: #25D366;
             --ouro: #fbbf24;
             --verde-online: #10b981;
+            --logo-gap: 0.16em;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,8 +43,34 @@
         
         header { position: fixed; width: 100%; top: 0; z-index: 1000; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; background-color: var(--branco); border-bottom: 1px solid rgba(0,0,0,0.03); transition: all 0.4s ease; }
         header.scrolled { padding: 10px 5%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .logo { font-size: 28px; font-weight: 900; color: var(--lilas); letter-spacing: -1px; }
-        .logo span { font-weight: 300; color: var(--cinza-azulado); }
+        
+        /* ============ LOGO NOVA ============ */
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--logo-gap);
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            font-size: 28px;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--lilas);
+            text-decoration: none;
+        }
+        .logo__mark {
+            flex: none;
+            width: 1.11em;
+            height: 0.69em;
+            transform: translateY(-0.02em);
+            overflow: visible;
+        }
+        .logo__mark path {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 13;
+            stroke-linecap: round;
+        }
+        
         .btn-outline { padding: 10px 24px; border-radius: 50px; font-weight: 800; color: var(--lilas); border: 2px solid var(--lilas); transition: 0.3s; background: transparent; }
         .btn-outline:hover { background: var(--lilas); color: var(--branco); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3); transform: translateY(-2px); }
 
@@ -152,6 +179,8 @@
             50% { opacity: 0.5; transform: scale(1.4); } 
         }
         .texto-disponivel { color: var(--verde-online); font-weight: 800; }
+        .luz-offline { width: 7px; height: 7px; background: var(--cinza-azulado); border-radius: 50%; display: inline-block; box-shadow: 0 0 6px rgba(148, 163, 184, 0.5); vertical-align: middle; margin-right: 4px; }
+        .texto-consultar { color: var(--cinza-fonte); font-weight: 800; }
 
         .cuidador-nome { font-size: 22px; font-weight: 900; margin-bottom: 8px; color: var(--preto-fonte); letter-spacing: -0.5px; }
         
@@ -246,7 +275,6 @@
         .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ==================== FOOTER PADRONIZADO ==================== */
         .site-footer { background-color: var(--fundo-site); color: var(--cinza-fonte); padding: 50px 20px 30px; text-align: center; border-top: 1px solid #e2e8f0; margin-top: 60px; width: 100%; }
         .footer-content { max-width: 900px; margin: 0 auto; font-size: 13px; line-height: 1.6; }
         .footer-content p { margin-bottom: 25px; }
@@ -271,13 +299,20 @@
             .como-funciona-grid { grid-template-columns: 1fr; gap: 35px; }
             .como-funciona-img img { min-height: 280px; }
             .cuidador-card { flex: 0 0 280px; }
+            .logo { font-size: 24px; }
         }
     </style>
 </head>
 <body>
 
     <header id="header">
-        <div class="logo">Afeto<span>Homecare</span></div>
+        <a href="index.html" class="logo" aria-label="Afeto - Página inicial">
+            <svg class="logo__mark" viewBox="9.5 15.5 111 69" aria-hidden="true" focusable="false">
+                <path d="M71.87 52.72 A28 28 0 1 0 50.20 77.30"/>
+                <path d="M79.80 22.70 A28 28 0 1 1 58.13 47.28"/>
+            </svg>
+            <span class="logo__text">Afeto</span>
+        </a>
         <a href="#orcamento" class="btn-outline">Fale Conosco</a>
     </header>
 
@@ -299,7 +334,7 @@
     <section class="section" id="cuidado-verificado" style="padding-top: 40px; padding-bottom: 20px;">
         <div class="sobre-nos-box reveal">
             <h2>Cuidado verificado, família tranquila.</h2>
-            <p>A Afeto Homecare é uma plataforma tecnológica que conecta famílias a profissionais autônomos de excelência. Nossa plataforma cruza a sua necessidade com perfis previamente verificados e bem avaliados. Reunimos em um só lugar profissionais que já construíram uma reputação sólida, para que você encontre com segurança quem realmente combina com a rotina do seu ente querido. Cada avaliação feita pelas famílias nos ajuda a manter a transparência e a confiança em nosso ecossistema.</p>
+            <p>A Afeto é uma plataforma tecnológica que conecta famílias a profissionais autônomos de excelência. Nossa plataforma cruza a sua necessidade com perfis previamente verificados e bem avaliados. Reunimos em um só lugar profissionais que já construíram uma reputação sólida, para que você encontre com segurança quem realmente combina com a rotina do seu ente querido. Cada avaliação feita pelas famílias nos ajuda a manter a transparência e a confiança em nosso ecossistema.</p>
         </div>
     </section>
 
@@ -448,7 +483,6 @@
         </a>
     </section>
 
-    <!-- ==================== FOOTER PADRONIZADO ==================== -->
     <footer class="site-footer">
         <div class="footer-content">
 
@@ -461,13 +495,13 @@
             </p>
 
             <div class="footer-social">
-                <a href="https://www.instagram.com/afetohomecareoficial" target="_blank" aria-label="Instagram Afeto Homecare">
+                <a href="https://www.instagram.com/afetohomecareoficial" target="_blank" aria-label="Instagram Afeto">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="https://wa.me/5541997674866?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Afeto." target="_blank" aria-label="WhatsApp Afeto Homecare">
+                <a href="https://wa.me/5541997674866?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Afeto." target="_blank" aria-label="WhatsApp Afeto">
                     <i class="fa-brands fa-whatsapp"></i>
                 </a>
-                <a href="mailto:afetohomecareoficial@gmail.com" aria-label="E-mail Afeto Homecare">
+                <a href="mailto:afetohomecareoficial@gmail.com" aria-label="E-mail Afeto">
                     <i class="fa-solid fa-envelope"></i>
                 </a>
             </div>
@@ -482,7 +516,7 @@
             </div>
 
             <div class="footer-legal">
-                Afeto Homecare &copy; 2026. Todos os direitos reservados.
+                Afeto &copy; 2026. Todos os direitos reservados.
             </div>
 
         </div>
@@ -579,6 +613,7 @@
             const especialidade = f.Especialidade || "Cuidador(a)";
             const bairro = f.Bairro || "Curitiba";
             
+            // ⚡ Foto só aparece com plano pago
             let fotoHTML = '<i class="fa-solid fa-user"></i>';
             if (f.Foto && f.Foto.length > 0) { 
                 const fotoOtimizada = resizeAirtablePhoto(f.Foto[0].url, 300, 300);
@@ -626,11 +661,14 @@
             }
 
             let horasAfeto = parseInt(f.Horas) || 0;
+            let estaDisponivel = f.Disponivel === true;
             let displayHoras = "";
             if (horasAfeto >= 24) {
                 displayHoras = `<span class="cuidador-meta ${isDiamante ? 'meta-diamante' : ''}">${bairro} • ${horasAfeto}h de afeto</span>`;
-            } else {
+            } else if (estaDisponivel) {
                 displayHoras = `<span class="cuidador-meta ${isDiamante ? 'meta-diamante' : ''}">${bairro} • <span class="texto-disponivel"><span class="luz-online"></span>Disponível</span></span>`;
+            } else {
+                displayHoras = `<span class="cuidador-meta ${isDiamante ? 'meta-diamante' : ''}">${bairro} • <span class="texto-consultar"><span class="luz-offline"></span>Consultar disponibilidade</span></span>`;
             }
 
             return `
@@ -665,8 +703,19 @@
                 const data = await response.json();
                 
                 if(data.records) {
+                    // ⚡ Só mostra quem tem plano pago ativo
+                    const apenasPagantes = data.records.filter(r => 
+                        r.fields.PlanoProfissional === true || r.fields.PlanoDestaque === true
+                    );
+
                     grid.innerHTML = '';
-                    data.records.forEach(record => {
+                    
+                    if (apenasPagantes.length === 0) {
+                        grid.innerHTML = '<div class="loader">Em breve novas profissionais por aqui 💜</div>';
+                        return;
+                    }
+                    
+                    apenasPagantes.forEach(record => {
                         grid.innerHTML += renderizarCard(record);
                     });
                     reveal();
