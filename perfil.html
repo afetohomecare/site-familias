@@ -48,7 +48,6 @@ header {
     border-bottom: 1px solid rgba(0,0,0,0.03); 
 }
 
-/* ============ LOGO ============ */
 .logo {
     display: inline-flex;
     align-items: center;
@@ -227,7 +226,6 @@ header {
     padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 800; 
 }
 
-/* ============ PREÇO DISCRETO ============ */
 .preco-bloco {
     text-align: center;
     margin-bottom: 22px;
@@ -331,6 +329,8 @@ header {
 .comentario-card:nth-child(3) { animation-delay: 0.3s; }
 .comentario-card:nth-child(4) { animation-delay: 0.45s; }
 .comentario-card:nth-child(5) { animation-delay: 0.6s; }
+.comentario-card:nth-child(6) { animation-delay: 0.75s; }
+.comentario-card:nth-child(7) { animation-delay: 0.9s; }
 @keyframes comentarioEntra {
     to { opacity: 1; transform: translateY(0); }
 }
@@ -497,7 +497,6 @@ header {
 
 <script>
 
-
 var params = new URLSearchParams(window.location.search);
 var recordId = params.get('id');
 var todosRegistros = [];
@@ -575,7 +574,7 @@ async function carregarTudo() {
         return;
     }
 
-       try {
+    try {
         var response = await fetch('/api/cuidadores');
         var data = await response.json();
 
@@ -601,19 +600,34 @@ function renderizarPerfil(record) {
     var container = document.getElementById('cardPerfil');
     var f = record.fields;
 
+    // 🚫 BLOQUEIO: perfil não aprovado
+    if (f.Aprovada !== true) {
+        container.innerHTML = 
+            '<div style="padding: 70px 30px; text-align: center;">' +
+                '<div style="font-size: 60px; margin-bottom: 22px; line-height: 1;">🔒</div>' +
+                '<h2 style="color: #1f1f1f; margin-bottom: 14px; font-weight: 900; font-size: 26px;">Perfil em análise</h2>' +
+                '<p style="color: #666; font-weight: 600; max-width: 420px; margin: 0 auto; line-height: 1.6; font-size: 15px;">Esta profissional ainda não foi aprovada pela equipe Afeto. Assim que estiver tudo certinho, o perfil estará disponível. 💜</p>' +
+            '</div>';
+        return;
+    }
+
     var wppCuidadora = f.WhatsAppAgencia || '5541997674866';
     var horasNum = parseInt(f.Horas) || 0;
     var precoBase = parseFloat(f.Preco) || 0;
 
-    var temPlanoProfissional = f.PlanoProfissional === true || f.PlanoDestaque === true;
-    var estaDisponivel = (f.Disponivel === true) && temPlanoProfissional;
+    // 🎯 3 travas: plano pago + status pago + aprovada (já garantido pelo bloqueio acima)
+    var temPlanoPago = (f.PlanoProfissional === true) || (f.PlanoDestaque === true);
+    var statusPago = f.StatusPagamento === 'Pago';
+    var temAcessoCompleto = temPlanoPago && statusPago;
+
+    var estaDisponivel = (f.Disponivel === true) && temAcessoCompleto;
 
     var todosNomes = todosRegistros.map(function(r) { return (r.fields && r.fields.Nome) || ''; });
     var nomeExibicao = gerarNomeUnico(f.Nome || 'Sem nome', todosNomes);
     var primeiroNome = (f.Nome || '').trim().split(/\s+/)[0] || 'profissional';
 
     var fotoHTML = '<i class="fa-solid fa-user"></i>';
-    if (temPlanoProfissional && f.Foto && f.Foto.length > 0) {
+    if (temAcessoCompleto && f.Foto && f.Foto.length > 0) {
         var fotoOtimizada = resizeAirtablePhoto(f.Foto[0].url, 600, 800);
         fotoHTML = '<img src="' + fotoOtimizada + '" alt="' + nomeExibicao + '" loading="lazy" decoding="async">';
     }
@@ -635,20 +649,20 @@ function renderizarPerfil(record) {
 
     container.className = 'perfil-card ' + cardClassAdd;
 
-    var seloVerificada = (temPlanoProfissional && f.Verificada) ? '<span class="cuidador-badge badge-verificada"><i class="fa-solid fa-check"></i> Verificada</span>' : '';
+    var seloVerificada = (temAcessoCompleto && f.Verificada) ? '<span class="cuidador-badge badge-verificada"><i class="fa-solid fa-check"></i> Verificada</span>' : '';
     var seloCoren = f.COREN ? '<span class="cuidador-badge badge-coren"><i class="fa-solid fa-id-card"></i> COREN</span>' : '';
 
-    var apresentacaoHTML = (temPlanoProfissional && f.Apresentacao) ? 
+    var apresentacaoHTML = (temAcessoCompleto && f.Apresentacao) ? 
         '<div class="bio-box reveal-item"><h4><i class="fa-solid fa-user-doctor"></i> Sobre a profissional</h4><p>' + f.Apresentacao + '</p></div>' : '';
 
     var tagsHTML = '';
-    if (temPlanoProfissional && f.Subespecialidades && Array.isArray(f.Subespecialidades)) {
+    if (temAcessoCompleto && f.Subespecialidades && Array.isArray(f.Subespecialidades)) {
         var badgesExp = f.Subespecialidades.map(function(sub) { return '<span class="tag-exp">✓ ' + sub + '</span>'; }).join('');
         tagsHTML = '<div class="experiencia-container reveal-item"><div class="experiencia-titulo">Especialidades:</div><div class="tags-exp">' + badgesExp + '</div></div>';
     }
 
     var cursosHTML = '';
-    if (temPlanoProfissional && f.Cursos) {
+    if (temAcessoCompleto && f.Cursos) {
         var listaCursos = String(f.Cursos).split(/\n|;|•/).map(function(c) { return c.trim(); }).filter(function(c) { return c; });
         var cursosTags = listaCursos.map(function(c) { return '<span class="tag-exp">🎓 ' + c + '</span>'; }).join('');
         cursosHTML = '<div class="experiencia-container reveal-item"><div class="experiencia-titulo">Formação e Certificações:</div><div class="tags-exp">' + cursosTags + '</div></div>';
@@ -694,7 +708,7 @@ function renderizarPerfil(record) {
         linhaStatusHTML = '<div class="info-linha"><span>Status</span><strong class="tag-consultar"><span class="luz-offline"></span>Consultar disponibilidade</strong></div>';
     }
 
-    var comentarios = temPlanoProfissional ? extrairComentarios(f.Comentarios) : [];
+    var comentarios = temAcessoCompleto ? extrairComentarios(f.Comentarios) : [];
     var comentariosHTML = '';
     if (comentarios.length > 0) {
         var cardsHTML = comentarios.map(function(c) {
@@ -760,7 +774,9 @@ function renderizarVejaTambem(atual, todos) {
 
     var outros = todos.filter(function(r) {
         var temPlano = r.fields.PlanoProfissional === true || r.fields.PlanoDestaque === true;
-        return r.id !== atual.id && temPlano;
+        var aprovada = r.fields.Aprovada === true;
+        var pago = r.fields.StatusPagamento === 'Pago';
+        return r.id !== atual.id && temPlano && aprovada && pago;
     });
 
     var match1 = outros.filter(function(r) {

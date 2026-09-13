@@ -44,7 +44,6 @@
         header { position: fixed; width: 100%; top: 0; z-index: 1000; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; background-color: var(--branco); border-bottom: 1px solid rgba(0,0,0,0.03); transition: all 0.4s ease; }
         header.scrolled { padding: 10px 5%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         
-        /* ============ LOGO NOVA ============ */
         .logo {
             display: inline-flex;
             align-items: center;
@@ -610,7 +609,6 @@
             const especialidade = f.Especialidade || "Cuidador(a)";
             const bairro = f.Bairro || "Curitiba";
             
-            // ⚡ Foto só aparece com plano pago
             let fotoHTML = '<i class="fa-solid fa-user"></i>';
             if (f.Foto && f.Foto.length > 0) { 
                 const fotoOtimizada = resizeAirtablePhoto(f.Foto[0].url, 300, 300);
@@ -699,9 +697,11 @@
         const data = await response.json();
                 
                 if(data.records) {
-                    // ⚡ Só mostra quem tem plano pago ativo
+                    // ⚡ Só mostra quem está APROVADA + PAGA + com plano ativo
                     const apenasPagantes = data.records.filter(r => 
-                        r.fields.PlanoProfissional === true || r.fields.PlanoDestaque === true
+                        r.fields.Aprovada === true 
+                        && r.fields.StatusPagamento === 'Pago'
+                        && (r.fields.PlanoProfissional === true || r.fields.PlanoDestaque === true)
                     );
 
                     grid.innerHTML = '';
