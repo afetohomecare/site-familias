@@ -14,8 +14,6 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://api.airtable.com">
-    <link rel="preconnect" href="https://v5.airtableusercontent.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;700;800;900&display=swap" rel="stylesheet">
@@ -596,23 +594,19 @@
             e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
         });
 
-        
-        function resizeAirtablePhoto(url, width, height) {
-            if (!url) return '';
-            const separator = url.includes('?') ? '&' : '?';
-            return `${url}${separator}width=${width}&height=${height}&fit=cover`;
-        }
+        // ============================================================
+        // VITRINE — lê do Supabase via /api/cuidadores
+        // O formato de resposta é { cuidadores: [ {nome, foto_url, ...} ] }
+        // ============================================================
 
-        function renderizarCard(record) {
-            const f = record.fields;
-            const nome = f.Nome || "Sem nome";
-            const especialidade = f.Especialidade || "Cuidador(a)";
-            const bairro = f.Bairro || "Curitiba";
+        function renderizarCard(cuidadora) {
+            const nome = cuidadora.nome || "Sem nome";
+            const especialidade = cuidadora.especialidade || "Cuidador(a)";
+            const bairro = cuidadora.bairro || "Curitiba";
             
             let fotoHTML = '<i class="fa-solid fa-user"></i>';
-            if (f.Foto && f.Foto.length > 0) { 
-                const fotoOtimizada = resizeAirtablePhoto(f.Foto[0].url, 300, 300);
-                fotoHTML = `<img src="${fotoOtimizada}" alt="${nome}" loading="lazy" decoding="async" width="130" height="130">`; 
+            if (cuidadora.foto_url) { 
+                fotoHTML = `<img src="${cuidadora.foto_url}" alt="${nome}" loading="lazy" decoding="async" width="130" height="130">`; 
             }
 
             let seloCategoria = '';
@@ -620,8 +614,8 @@
             let anelClassAdd = '';
             let isDiamante = false;
             
-            if (f.Categoria) {
-                const catText = f.Categoria.toLowerCase();
+            if (cuidadora.categoria) {
+                const catText = cuidadora.categoria.toLowerCase();
                 if (catText.includes('diamante')) { cardClassAdd = 'card-diamante'; anelClassAdd = 'anel-diamante'; seloCategoria = `<span class="cuidador-badge badge-diamante"><i class="fa-solid fa-award"></i> Diamante</span>`; isDiamante = true; } 
                 else if (catText.includes('ouro')) { cardClassAdd = 'card-ouro'; anelClassAdd = 'anel-ouro'; seloCategoria = `<span class="cuidador-badge badge-ouro"><i class="fa-solid fa-award"></i> Ouro</span>`; } 
                 else if (catText.includes('prata')) { cardClassAdd = 'card-prata'; anelClassAdd = 'anel-prata'; seloCategoria = `<span class="cuidador-badge badge-prata"><i class="fa-solid fa-award"></i> Prata</span>`; } 
@@ -631,11 +625,11 @@
                 cardClassAdd = ''; anelClassAdd = ''; seloCategoria = `<span class="cuidador-badge badge-novidade"><i class="fa-solid fa-sparkles"></i> Novidade na Afeto</span>`;
             }
 
-            const seloVerificada = f.Verificada ? `<span class="cuidador-badge badge-verificada"><i class="fa-solid fa-check"></i> Verificada</span>` : '';
-            const seloCoren = f.COREN ? `<span class="cuidador-badge badge-coren"><i class="fa-solid fa-id-card"></i> COREN</span>` : '';
+            const seloVerificada = cuidadora.verificada ? `<span class="cuidador-badge badge-verificada"><i class="fa-solid fa-check"></i> Verificada</span>` : '';
+            const seloCoren = cuidadora.coren ? `<span class="cuidador-badge badge-coren"><i class="fa-solid fa-id-card"></i> COREN</span>` : '';
 
             let estrelasHTML = '';
-            let notaValor = parseFloat(f.Nota);
+            let notaValor = parseFloat(cuidadora.nota);
             if (!isNaN(notaValor) && notaValor > 0) {
                 let qtdCheias = Math.round(notaValor);
                 if (qtdCheias > 5) qtdCheias = 5;
@@ -644,8 +638,8 @@
             }
 
             let turnoHTML = '';
-            if (f.Turno) {
-                const t = f.Turno.toLowerCase();
+            if (cuidadora.turno) {
+                const t = cuidadora.turno.toLowerCase();
                 if (t.includes('diurno e noturno') || t.includes('integral') || t.includes('24')) {
                     turnoHTML = `<span class="turno-pill turno-integral"><i class="fa-solid fa-sun"></i> <i class="fa-solid fa-moon"></i> Diurno e Noturno</span>`;
                 } else if (t.includes('noturno')) {
@@ -655,8 +649,8 @@
                 }
             }
 
-            let horasAfeto = parseInt(f.Horas) || 0;
-            let estaDisponivel = f.Disponivel === true;
+            let horasAfeto = parseInt(cuidadora.horas) || 0;
+            let estaDisponivel = cuidadora.disponivel === true;
             let displayHoras = "";
             if (horasAfeto >= 24) {
                 displayHoras = `<span class="cuidador-meta ${isDiamante ? 'meta-diamante' : ''}">${bairro} • ${horasAfeto}h de afeto</span>`;
@@ -667,7 +661,7 @@
             }
 
             return `
-                <div class="cuidador-card ${cardClassAdd} reveal" onclick="window.location.href='perfil.html?id=${record.id}'" style="cursor:pointer;">
+                <div class="cuidador-card ${cardClassAdd} reveal" onclick="window.location.href='perfil.html?id=${cuidadora.id}'" style="cursor:pointer;">
                     <div class="card-top">
                         <div class="foto-anel ${anelClassAdd}">
                             ${fotoHTML}
@@ -688,35 +682,31 @@
             `;
         }
 
-       async function carregarCuidadores() {
-    const grid = document.getElementById('cuidadores-grid');
-    if(!grid) return;
+        async function carregarCuidadores() {
+            const grid = document.getElementById('cuidadores-grid');
+            if (!grid) return;
 
-    try {
-        const response = await fetch('/api/cuidadores');
-        const data = await response.json();
-                
-                if(data.records) {
-                    // ⚡ Só mostra quem está APROVADA + PAGA + com plano ativo
-                    const apenasPagantes = data.records.filter(r => 
-                        r.fields.Aprovada === true 
-                        && r.fields.StatusPagamento === 'Pago'
-                        && (r.fields.PlanoProfissional === true || r.fields.PlanoDestaque === true)
-                    );
+            try {
+                const response = await fetch('/api/cuidadores');
+                const data = await response.json();
 
-                    grid.innerHTML = '';
-                    
-                    if (apenasPagantes.length === 0) {
-                        grid.innerHTML = '<div class="loader">Em breve novas profissionais por aqui 💜</div>';
-                        return;
-                    }
-                    
-                    apenasPagantes.forEach(record => {
-                        grid.innerHTML += renderizarCard(record);
-                    });
-                    reveal();
+                // A API já devolve apenas quem está aprovada, paga e com plano ativo.
+                const lista = (data && data.cuidadores) ? data.cuidadores : [];
+
+                grid.innerHTML = '';
+
+                if (lista.length === 0) {
+                    grid.innerHTML = '<div class="loader">Em breve novas profissionais por aqui 💜</div>';
+                    return;
                 }
-            } catch (error) { grid.innerHTML = '<div class="loader" style="color:red;">Erro ao carregar profissionais.</div>'; }
+
+                lista.forEach(cuidadora => {
+                    grid.innerHTML += renderizarCard(cuidadora);
+                });
+                reveal();
+            } catch (error) {
+                grid.innerHTML = '<div class="loader" style="color:red;">Erro ao carregar profissionais.</div>';
+            }
         }
         carregarCuidadores();
     </script>

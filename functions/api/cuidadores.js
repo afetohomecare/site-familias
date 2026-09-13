@@ -1,75 +1,97 @@
-// functions/api/cuidadores.js
-// Proxy Airtable → Frontend (usado nos sites das cuidadoras e das famílias)
+// ============================================================
+// AFETO — API: lista de cuidadoras para a vitrine
+// ------------------------------------------------------------
+// Lê do Supabase (PostgreSQL) somente as cuidadoras que estão:
+//   • aprovada = true
+//   • status_pagamento = 'Pago'
+//   • tem plano_profissional OU plano_destaque ativo
+//
+// A filtragem é feita NO BANCO (não no navegador), para não
+// trafegar dados de perfis não aprovados pela rede.
+//
+// Também devolve apenas campos públicos — nunca CPF, e-mail,
+// IDs do Asaas ou qualquer dado que não seja de vitrine.
+// ============================================================
 
-const AIRTABLE_BASE = 'apphAWeT91l1dMWM5';
-const AIRTABLE_TABLE = 'Cuidadores';
+const CAMPOS_PUBLICOS = [
+  'id',
+  'nome',
+  'whatsapp',
+  'whatsapp_agencia',
+  'foto_url',
+  'apresentacao',
+  'motivacao',
+  'especialidade',
+  'experiencia',
+  'bairro',
+  'bairros',
+  'preco',
+  'turno',
+  'cursos',
+  'subespecialidades',
+  'categoria',
+  'nota',
+  'horas',
+  'verificada',
+  'disponivel',
+  'plano_profissional',
+  'plano_destaque',
+  'coren',
+  'comentarios',
+  'criado_em'
+];
 
-export async function onRequest(context) {
-  const AIRTABLE_API_KEY = context.env.AIRTABLE_API_KEY;
+function respostaErro(mensagem, status) {
+  return new Response(JSON.stringify({ erro: mensagem }), {
+    status: status,
+    headers: { 'Content-Type': 'application/json; charset=utf-8' }
+  });
+}
 
-  if (!AIRTABLE_API_KEY) {
-    return new Response(JSON.stringify({ 
-      error: 'Configuração ausente',
-      detalhe: 'AIRTABLE_API_KEY não está nas variáveis de ambiente'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+export async function onRequestGet(context) {
+  const { env } = context;
+
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_KEY) {
+    return respostaErro('Configuração do servidor ausente.', 500);
   }
 
+  const parametros = [
+    'aprovada=eq.true',
+    'status_pagamento=eq.Pago',
+    'or=(plano_profissional.eq.true,plano_destaque.eq.true)',
+    'select=' + CAMPOS_PUBLICOS.join(','),
+    'order=criado_em.desc'
+  ].join('&');
+
+  const url = env.SUPABASE_URL + '/rest/v1/cuidadores?' + parametros;
+
+  let resposta;
   try {
-    // Busca todos os registros da tabela (com paginação)
-    let todosRegistros = [];
-    let offset = null;
-    let paginas = 0;
-    const MAX_PAGINAS = 10; // trava de segurança
-
-    do {
-      let url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?pageSize=100`;
-      if (offset) url += `&offset=${offset}`;
-
-      const resp = await fetch(url, {
-        headers: { Authorization: `Bearer ${AIRTABLE_API_KEY}` }
-      });
-
-      if (!resp.ok) {
-        const erro = await resp.text();
-        console.error('Airtable erro:', resp.status, erro);
-        return new Response(JSON.stringify({
-          error: 'Falha ao buscar no Airtable',
-          status: resp.status,
-          detalhe: erro.substring(0, 300)
-        }), {
-          status: 502,
-          headers: { 'Content-Type': 'application/json' }
-        });
-      }
-
-      const data = await resp.json();
-      if (data.records) {
-        todosRegistros = todosRegistros.concat(data.records);
-      }
-      offset = data.offset || null;
-      paginas++;
-
-    } while (offset && paginas < MAX_PAGINAS);
-
-    return new Response(JSON.stringify({ records: todosRegistros }), {
-      status: 200,
+    resposta = await fetch(url, {
       headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=60' // cache 60s
+        'apikey': env.SUPABASE_SERVICE_KEY,
+        'Authorization': 'Bearer ' + env.SUPABASE_SERVICE_KEY,
+        'Accept': 'application/json'
       }
     });
-
-  } catch (err) {
-    console.error('Erro cuidadores.js:', err);
-    return new Response(JSON.stringify({
-      error: 'Falha no processamento',
-      detalhe: String(err && err.message ? err.message : err)
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+  } catch (erroRede) {
+    console.error('Falha de rede ao consultar Supabase:', erroRede);
+    return respostaErro('Não foi possível conectar ao banco de dados.', 502);
   }
+
+  if (!resposta.ok) {
+    const detalhe = await resposta.text().catch(function () { return ''; });
+    console.error('Supabase respondeu', resposta.status, detalhe);
+    return respostaErro('Erro ao buscar cuidadoras.', 500);
+  }
+
+  const cuidadores = await resposta.json();
+
+  return new Response(JSON.stringify({ cuidadores: cuidadores }), {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'public, max-age=60, s-maxage=60'
+    }
+  });
 }
